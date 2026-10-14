@@ -1771,16 +1771,16 @@ p + p {
 }
 
 /* ---------- movimiento reducido: todo visible y estático ---------- */
-.rm .segments__pin {
+.calm .segments__pin {
   height: auto;
   overflow: visible;
   padding-block: 120px;
 }
-.rm .segments__intro,
-.rm .tunnel {
+.calm .segments__intro,
+.calm .tunnel {
   position: static;
 }
-.rm .tunnel {
+.calm .tunnel {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 18px;
@@ -1788,7 +1788,7 @@ p + p {
   max-width: 1320px;
   margin-inline: auto;
 }
-.rm .tunnel__item {
+.calm .tunnel__item {
   position: relative;
   top: auto;
   left: auto;
@@ -1796,25 +1796,261 @@ p + p {
   width: auto;
   opacity: 1;
 }
-.rm .biz__window,
-.rm .installer__media {
+.calm .biz__window,
+.calm .installer__media {
   clip-path: none;
 }
-.rm .installer {
+.calm .installer {
   height: auto;
 }
-.rm .installer__media {
+.calm .installer__media {
   position: relative;
 }
-.rm .manifesto {
+.calm .manifesto {
   height: auto;
 }
-.rm .manifesto__sticky {
+.calm .manifesto__sticky {
   position: static;
   height: auto;
   padding-block: 140px;
 }
-.rm .depth__frame img,
-.rm .installer__media img {
+.calm .depth__frame img,
+.calm .installer__media img {
   transform: none;
+}
+
+/* =========================================================
+   Modo sobrio (profesional): sin 3D ni pins, solo apariciones suaves
+   ========================================================= */
+.calm .grain,
+.calm .hud,
+.calm .scroll-cue {
+  display: none;
+}
+.calm .hero__ren {
+  animation: none;
+  background-size: 100% 100%;
+}
+.calm .pulse::after {
+  animation: none;
+  opacity: 0;
+}
+.calm .manifesto__text .w {
+  opacity: 1;
+}
+.calm .manifesto__sticky {
+  padding-block: clamp(90px, 14vh, 170px);
+}
+.calm .manifesto__text {
+  font-size: clamp(24px, 3.4vw, 48px);
+}
+.calm .depth__frame,
+.calm .phone,
+.calm .step,
+.calm .card {
+  transform: none;
+  will-change: auto;
+}
+.calm .depth__frame {
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--line);
+}
+.calm .depth__frame::after {
+  display: none;
+}
+.calm .phone {
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* proceso: cuadrícula normal */
+.calm .process__pin {
+  min-height: 0;
+  padding-block: clamp(80px, 12vh, 150px);
+}
+.calm .process__track-wrap {
+  padding-inline: var(--gutter);
+  max-width: 1320px;
+  margin-inline: auto;
+}
+.calm .process__track {
+  width: auto;
+  padding-right: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+.calm .process__line,
+.calm .step::before {
+  display: none;
+}
+.calm .step {
+  width: auto;
+  margin-top: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(13, 17, 22, 0.82);
+}
+.calm .step__icon {
+  margin-bottom: 26px;
+}
+
+/* tarjetas del hogar: una debajo de otra, sin apilado */
+.calm .stack__card {
+  position: relative;
+  top: auto !important;
+  min-height: 0;
+  filter: none !important;
+  transform: none !important;
+}
+.calm .stack__media img {
+  transform: none !important;
+}
+
+/* trabajo, instalador y empresas: imágenes enteras, sin recortes animados */
+.calm .installer {
+  height: auto;
+  margin-top: clamp(70px, 12vh, 140px);
+}
+.calm .installer__media {
+  position: relative;
+  height: clamp(420px, 70vh, 720px);
+  border-radius: var(--radius-lg);
+  margin-inline: var(--gutter);
+  max-width: 1320px;
+}
+@media (min-width: 1400px) {
+  .calm .installer__media {
+    margin-inline: auto;
+  }
+}
+.calm .installer__txt {
+  bottom: 6vh;
+}
+.calm .biz__pin {
+  height: auto;
+  min-height: clamp(520px, 80vh, 760px);
+}
+.calm .biz__img--2 {
+  display: none;
+}
+.calm .tunnel__item figcaption {
+  font-size: clamp(24px, 2.4vw, 34px);
+}
+.calm .tunnel {
+  grid-template-columns: repeat(3, 1fr);
+}
+.calm .segments__pin {
+  padding-block: clamp(80px, 12vh, 150px);
+}
+.calm .segments__intro {
+  pointer-events: auto;
+}
+.calm .marquee__track {
+  animation-duration: 60s;
+}
+
+/* aparición suave (la activa main.js) */
+.calm [data-reveal],
+.calm [data-card],
+.calm [data-split] {
+  will-change: opacity, transform;
+}
+
+/* ---------- móvil ---------- */
+body.no-webgl::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: #07090c url('/img/atardecer.webp') center 40% / cover no-repeat;
+}
+
+@media (max-width: 900px) {
+  body {
+    font-size: 16px;
+  }
+  .section {
+    padding-block: 72px;
+  }
+  .calm .tunnel {
+    grid-template-columns: 1fr;
+    padding-top: 28px;
+  }
+  .calm .tunnel__item {
+    aspect-ratio: 4 / 3;
+  }
+  .calm .manifesto__sticky {
+    padding-block: 72px;
+  }
+  .calm .installer__media {
+    height: 420px;
+    margin-inline: var(--gutter);
+  }
+  .calm .installer__txt {
+    bottom: 28px;
+  }
+  .calm .biz__pin {
+    min-height: 520px;
+  }
+  .calm .process__pin,
+  .calm .segments__pin {
+    padding-block: 72px;
+  }
+  .nav {
+    padding-block: 12px;
+  }
+  .nav__word {
+    font-size: 15px;
+  }
+  .hero {
+    padding-top: 96px;
+    padding-bottom: 56px;
+    align-items: flex-end;
+  }
+  .hero__asr {
+    font-size: clamp(56px, 18vw, 96px);
+  }
+  .hero__ren {
+    font-size: clamp(44px, 14vw, 80px);
+  }
+  .hero__lead {
+    font-size: 17px;
+    margin-bottom: 26px;
+  }
+  .hero__services {
+    gap: 6px 16px;
+    font-size: 13px;
+  }
+  .btn {
+    padding-block: 15px;
+    min-height: 48px;
+  }
+  .brands {
+    border-radius: 24px;
+  }
+  .stack__card {
+    border-radius: 24px;
+  }
+  .stack__body {
+    padding: 28px 24px 32px;
+  }
+  .contact {
+    min-height: 0;
+    padding-block: 80px;
+  }
+  .quote {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(10, 13, 17, 0.88);
+    border-radius: 24px;
+  }
+  .menu {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(7, 9, 12, 0.98);
+  }
+  .nav.is-scrolled {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(7, 9, 12, 0.92);
+  }
 }
