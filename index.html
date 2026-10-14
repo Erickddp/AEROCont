@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>ASR Renovables · Paneles solares, servicios eléctricos y HVAC en Ciudad Juárez</title>
+    <meta
+      name="description"
+      content="Soluciones solares y eléctricas diseñadas para la eficiencia, control y ahorro de energía. Paneles solares, servicios eléctricos, HVAC y generadores en Ciudad Juárez, Chihuahua."
+    />
+    <meta name="theme-color" content="#07090c" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content="ASR Renovables · Energía solar en Ciudad Juárez" />
+    <meta
+      property="og:description"
+      content="Más que instalar paneles, diseñamos soluciones de energía. Residencial, comercial e industrial."
+    />
+    <meta property="og:image" content="img/atardecer.webp" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "ASR Renovables",
+        "description": "Soluciones solares y eléctricas diseñadas para la eficiencia, control y ahorro de energía.",
+        "telephone": ["+52 656 103 1243", "+52 656 662 1834"],
+        "email": "asr.renovables@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ciudad Juárez",
+          "addressRegion": "Chihuahua",
+          "addressCountry": "MX"
+        },
+        "areaServed": "Ciudad Juárez, Chihuahua",
+        "knowsAbout": ["Paneles solares", "Servicios eléctricos", "HVAC", "Generadores eléctricos"]
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Pantalla de carga -->
+    <div class="loader" aria-hidden="true">
+      <div class="loader__inner">
+        <div class="loader__logo">
+          <img src="img/logo/icon-light.png" alt="" width="240" height="207" />
+        </div>
+        <div class="loader__bar"><span></span></div>
+        <div class="loader__count"><span class="loader__num">0</span>%</div>
+      </div>
+    </div>
+
+    <!-- Mundo 3D -->
+    <canvas class="webgl" aria-hidden="true"></canvas>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- Navegación -->
+    <header class="nav">
+      <a href="#inicio" class="nav__brand" aria-label="ASR Renovables, inicio">
+        <img src="img/logo/icon-light.png" alt="" width="40" height="34" />
+        <span class="nav__word"><b>ASR</b> Renovables</span>
+      </a>
+      <nav class="nav__links" aria-label="Principal">
+        <a href="#paneles">Paneles solares</a>
+        <a href="#hogar">Hogar</a>
+        <a href="#empresas">Empresas</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#por-que">Nosotros</a>
+      </nav>
+      <a href="#contacto" class="btn btn--gold btn--sm nav__cta magnetic">Cotizar ahora</a>
+      <button class="nav__burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span>
+      </button>
+    </header>
+
+    <div class="menu" id="menu" aria-hidden="true">
+      <nav class="menu__links" aria-label="Menú móvil">
+        <a href="#inicio">Inicio</a>
+        <a href="#paneles">Paneles solares</a>
+        <a href="#hogar">Sistemas para tu hogar</a>
+        <a href="#empresas">Soluciones para empresas</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#por-que">¿Por qué elegirnos?</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="menu__contact">
+        <a href="tel:+526561031243">656 103 1243</a>
+        <a href="tel:+526566621834">656 662 1834</a>
+        <a href="mailto:asr.renovables@gmail.com">asr.renovables@gmail.com</a>
+      </div>
+    </div>
+
+    <!-- Reloj solar: el scroll recorre un día -->
+    <div class="hud" aria-hidden="true">
+      <svg class="hud__arc" viewBox="0 0 120 64">
+        <path d="M6 60 A54 54 0 0 1 114 60" />
+        <circle class="hud__sun" r="5" cx="6" cy="60" />
+      </svg>
+      <div class="hud__txt">
+        <span class="hud__time">06:15</span>
+        <span class="hud__label">Amanecer</span>
+      </div>
+    </div>
+
+    <main>
+      <!-- ============ HERO ============ -->
+      <section class="hero" id="inicio" data-veil="0">
+        <div class="container hero__inner">
+          <p class="eyebrow hero__eyebrow"><span class="pulse"></span>Ciudad Juárez, Chihuahua</p>
+          <h1 class="hero__title">
+            <span class="hero__line"><span class="hero__asr">ASR</span></span>
+            <span class="hero__line"><span class="hero__ren">Renovables</span></span>
+          </h1>
+          <p class="hero__lead">
+            Soluciones solares y eléctricas diseñadas para la eficiencia, control y ahorro de energía.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--gold magnetic" href="#contacto">
+              Cotizar ahora
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </a>
+            <a class="btn btn--ghost" href="#paneles">Conoce cómo trabajamos</a>
+          </div>
+          <ul class="hero__services">
+            <li>Paneles solares</li>
+            <li>Servicios eléctricos</li>
+            <li>HVAC</li>
+            <li>Generadores eléctricos</li>
+          </ul>
+        </div>
+        <div class="hero__contact">
+          <a href="tel:+526561031243">656 103 1243</a>
+          <a href="tel:+526566621834">656 662 1834</a>
+          <a href="mailto:asr.renovables@gmail.com">asr.renovables@gmail.com</a>
+        </div>
+        <div class="scroll-cue" aria-hidden="true">
+          <span>Desliza y recorre un día de energía</span>
+          <i></i>
+        </div>
+      </section>
+
+      <!-- ============ MANIFIESTO ============ -->
+      <section class="manifesto" id="manifiesto" data-veil="0.35">
+        <div class="manifesto__sticky">
+          <div class="container">
+            <p class="eyebrow">Nuestro compromiso</p>
+            <p class="manifesto__text" data-words>
+              En ASR Renovables hacemos realidad tu <em>proyecto energético</em> ofreciendo soluciones de
+              <em>calidad</em> y eficientes, con el compromiso de brindarte el <em>mejor valor</em> por tu inversión.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PANELES SOLARES ============ -->
+      <section class="panels section" id="paneles" data-veil="0.55">
+        <div class="container split">
+          <div class="split__text">
+            <p class="eyebrow" data-reveal>Paneles solares</p>
+            <h2 class="h2" data-split>Más que instalar paneles, diseñamos soluciones de energía.</h2>
+            <p class="tags" data-reveal>
+              <span>Instalación</span><span>Mantenimiento</span><span>Soporte técnico</span>
+            </p>
+            <p class="lead" data-reveal>
+              Un sistema solar bien diseñado no consiste simplemente en instalar paneles en un techo.
+            </p>
+            <p data-reveal>
+              Nosotros analizamos tu consumo, las características de tu instalación y las condiciones del sitio para
+              desarrollar una solución que se adapte realmente a tus necesidades.
+            </p>
+          </div>
+          <figure class="split__media depth" data-depth>
+            <div class="depth__frame tilt">
+              <img src="img/paneles-techo.webp" alt="Paneles solares instalados sobre techo de lámina" loading="lazy" width="1280" height="719" />
+            </div>
+            <figcaption>Instalación real · ASR Renovables</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ============ PROCESO ============ -->
+      <section class="process" id="proceso" data-veil="0.45">
+        <div class="process__pin">
+          <div class="container process__head">
+            <p class="eyebrow" data-reveal>Nuestro proceso</p>
+            <h2 class="h2" data-split>Nuestro proceso es simple, rápido y directo.</h2>
+            <p class="lead" data-reveal>
+              Te acompañamos desde la primera consulta hasta la puesta en marcha y supervisión de tu sistema.
+            </p>
+          </div>
+          <div class="process__track-wrap">
+            <div class="process__line"><span></span></div>
+            <ol class="process__track">
+              <li class="step">
+                <span class="step__num">01</span>
+                <span class="step__icon">
+                  <svg viewBox="0 0 48 48"><rect x="11" y="8" width="26" height="34" rx="3" /><path d="M18 8v-2h12v2M17 20h14M17 27h14M17 34h8" /></svg>
+                </span>
+                <h3>Evaluación</h3>
+                <p>Analizamos tu consumo, las características de tu instalación y las condiciones del sitio.</p>
+              </li>
+              <li class="step">
+                <span class="step__num">02</span>
+                <span class="step__icon">
+                  <svg viewBox="0 0 48 48"><path d="M8 38l8-20h24l-8 20z" /><path d="M14 28h22M18 18l-6 20M26 18l-4 20M34 18l-2 20" /></svg>
+                </span>
+                <h3>Diseño</h3>
+                <p>Todos los sistemas se diseñan con base en las necesidades de cada cliente.</p>
+              </li>
+              <li class="step">
+                <span class="step__num">03</span>
+                <span class="step__icon">
+                  <svg viewBox="0 0 48 48"><path d="M14 22a10 10 0 0 1 20 0" /><path d="M10 22h28M20 12v-4h8v4" /><path d="M16 22v6a8 8 0 0 0 16 0v-6M14 44c0-6 4-9 10-9s10 3 10 9" /></svg>
+                </span>
+                <h3>Instalación</h3>
+                <p>Instaladores capacitados con amplia experiencia en instalaciones fotovoltaicas y eléctricas.</p>
+              </li>
+              <li class="step">
+                <span class="step__num">04</span>
+                <span class="step__icon">
+                  <svg viewBox="0 0 48 48"><rect x="16" y="6" width="16" height="36" rx="3" /><path d="M21 37h6M25 14l-5 9h8l-5 9" /></svg>
+                </span>
+                <h3>Puesta en marcha</h3>
+                <p>Te acompañamos en los trámites con CFE y garantizamos la puesta en marcha en 20 días.</p>
+              </li>
+              <li class="step">
+                <span class="step__num">05</span>
+                <span class="step__icon">
+                  <svg viewBox="0 0 48 48"><path d="M10 26v-2a14 14 0 0 1 28 0v2" /><rect x="7" y="25" width="7" height="11" rx="2" /><rect x="34" y="25" width="7" height="11" rx="2" /><path d="M37 36c0 4-4 6-10 6h-3" /></svg>
+                </span>
+                <h3>Soporte continuo</h3>
+                <p>Monitoreo, mantenimiento, soporte y escalabilidad para tu sistema.</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ MONITOREO ============ -->
+      <section class="monitor section" id="monitoreo" data-veil="0.6">
+        <div class="container split split--rev">
+          <div class="split__text">
+            <p class="eyebrow" data-reveal>Seguimiento y monitoreo</p>
+            <h2 class="h2" data-split>Nuestro servicio no se limita ni concluye con la puesta en marcha de tu sistema</h2>
+            <p data-reveal>
+              Te acompañamos en tu proceso de adaptación a tu sistema fotovoltaico con el monitoreo de tus paneles
+              solares para asegurar su correcto funcionamiento.
+            </p>
+            <p class="small-label" data-reveal>Además brindamos:</p>
+            <ul class="chips" data-reveal>
+              <li>Mantenimiento</li>
+              <li>Soporte</li>
+              <li>Escalabilidad</li>
+            </ul>
+          </div>
+          <div class="phone-stage" data-phone>
+            <div class="phone">
+              <div class="phone__notch"></div>
+              <img src="img/monitoreo.webp" alt="Pantalla de monitoreo: producción, consumo y red eléctrica a lo largo del día" loading="lazy" width="458" height="616" />
+            </div>
+            <div class="phone__glow"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SEGMENTOS (túnel 3D) ============ -->
+      <section class="segments" id="segmentos" data-veil="0.7">
+        <div class="segments__pin">
+          <div class="segments__intro container">
+            <p class="eyebrow">Proyectos a tu medida</p>
+            <h2 class="h2">
+              Te ofrecemos un diseño personalizado y una instalación profesional en proyectos residenciales, comerciales e
+              industriales.
+            </h2>
+          </div>
+          <div class="tunnel">
+            <figure class="tunnel__item" data-label="Residencial">
+              <img src="img/residencial.webp" alt="Vista aérea de casa con paneles solares en azotea" loading="lazy" width="720" height="720" />
+              <figcaption><span>01</span>Residencial</figcaption>
+            </figure>
+            <figure class="tunnel__item" data-label="Comercial">
+              <img src="img/comercial.webp" alt="Local comercial con paneles solares en la azotea" loading="lazy" width="720" height="720" />
+              <figcaption><span>02</span>Comercial</figcaption>
+            </figure>
+            <figure class="tunnel__item" data-label="Industrial">
+              <img src="img/industrial.webp" alt="Nave industrial con techo cubierto de paneles solares" loading="lazy" width="1152" height="1152" />
+              <figcaption><span>03</span>Industrial</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ HOGAR ============ -->
+      <section class="home section" id="hogar" data-veil="0.82">
+        <div class="container">
+          <div class="home__hero">
+            <figure class="home__media depth" data-depth>
+              <div class="depth__frame">
+                <img src="img/hogar.webp" alt="Sistema fotovoltaico sobre estructura de aluminio en azotea de casa" loading="lazy" width="1085" height="609" />
+              </div>
+            </figure>
+            <div class="home__intro">
+              <p class="eyebrow" data-reveal>Residencial</p>
+              <h2 class="h2 h2--gold" data-split>Sistema fotovoltaico para tu hogar</h2>
+              <h3 class="h3" data-reveal>¿Tienes un recibo de luz elevado?</h3>
+              <p data-reveal>
+                ¡Reduce tu dependencia de la red eléctrica! Aprovecha la energía del sol para generar gran parte de la
+                electricidad que consumes diariamente.
+              </p>
+            </div>
+          </div>
+
+          <p class="home__bridge" data-reveal>
+            Nosotros te ayudamos a determinar qué sistema solar necesita tu hogar. Contamos con amplia experiencia en:
+          </p>
+
+          <div class="stack">
+            <article class="stack__card">
+              <div class="stack__media"><img src="img/interconectado.webp" alt="Inversor Growatt y estructura de un sistema interconectado" loading="lazy" width="1280" height="1280" /></div>
+              <div class="stack__body">
+                <span class="stack__idx">01</span>
+                <h3>Sistemas interconectados</h3>
+                <p>Es el sistema más común, que te ayuda a reducir tu recibo de CFE hasta en un</p>
+                <p class="stat"><span class="stat__num" data-count="98">0</span><span class="stat__unit">%</span></p>
+              </div>
+            </article>
+            <article class="stack__card">
+              <div class="stack__media"><img src="img/hibrido.webp" alt="Inversor híbrido Hoymiles con batería y centro de carga" loading="lazy" width="1280" height="1280" /></div>
+              <div class="stack__body">
+                <span class="stack__idx">02</span>
+                <h3>Sistemas híbridos</h3>
+                <p class="stack__q">¿Apagones frecuentes o respaldo para cargas críticas?</p>
+                <p>
+                  Con un sistema híbrido no solo reduces el costo de tu recibo, sino la dependencia de tu hogar de la
+                  inestable red de CFE.
+                </p>
+              </div>
+            </article>
+            <article class="stack__card">
+              <div class="stack__media"><img src="img/aislado.webp" alt="Banco de baterías e inversor de un sistema aislado" loading="lazy" width="1280" height="1280" /></div>
+              <div class="stack__body">
+                <span class="stack__idx">03</span>
+                <h3>Sistemas aislados</h3>
+                <p>
+                  Si aún no hay servicio eléctrico en tu domicilio o quieres aislarte de la red de CFE, este sistema es para
+                  ti.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONOCE NUESTRO TRABAJO ============ -->
+      <section class="work section" id="trabajo" data-veil="0.86">
+        <div class="container">
+          <h2 class="display" data-split>Conoce nuestro trabajo</h2>
+
+          <div class="work__grid">
+            <article class="work__item work__item--photo" data-depth>
+              <div class="depth__frame tilt">
+                <img src="img/personalizado.webp" alt="Casa de ladrillo con sistema solar personalizado" loading="lazy" width="720" height="720" />
+              </div>
+              <div class="work__txt">
+                <h3>Sistemas personalizados</h3>
+                <p>Todos los sistemas se diseñan con base en las necesidades de cada cliente.</p>
+              </div>
+            </article>
+
+            <article class="work__item work__item--k2" data-depth>
+              <div class="k2 tilt">
+                <img src="img/brands/k2.webp" alt="K2 Systems" loading="lazy" width="480" height="480" />
+              </div>
+              <div class="work__txt">
+                <h3>Materiales de la mejor calidad</h3>
+                <p>
+                  Los paneles se instalan sobre una estructura de aluminio anodizado, fabricada específicamente para
+                  instalaciones solares.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div class="brands" data-reveal>
+            <div class="brands__head">
+              <h3>Equipos certificados y garantizados</h3>
+              <p>Solo instalamos los mejores módulos e inversores del mercado, te garantizamos la eficiencia y durabilidad.</p>
+            </div>
+            <div class="marquee">
+              <div class="marquee__track">
+                <img src="img/brands/canadian-solar.webp" alt="Canadian Solar" width="867" height="128" />
+                <img src="img/brands/ja-solar.webp" alt="JA Solar" width="694" height="126" />
+                <img src="img/brands/hoymiles.webp" alt="Hoymiles" width="428" height="128" />
+                <img src="img/brands/growatt.webp" alt="Growatt" width="520" height="127" />
+                <img src="img/brands/huawei.webp" alt="Huawei" width="288" height="293" class="tall" />
+                <img src="img/brands/longi.webp" alt="LONGi" width="338" height="127" />
+                <img src="img/brands/tw-solar.webp" alt="TW Solar" width="744" height="129" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="installer" data-installer>
+          <div class="installer__media">
+            <img src="img/instalador.webp" alt="Instalador de ASR Renovables midiendo irradiancia sobre un techo industrial" loading="lazy" width="1280" height="1280" />
+          </div>
+          <div class="installer__txt container">
+            <p class="eyebrow">Instalación profesional</p>
+            <h3 class="h2">Nuestros instaladores están capacitados y cuentan con amplia experiencia en instalaciones fotovoltaicas y eléctricas.</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ EMPRESAS ============ -->
+      <section class="biz" id="empresas" data-veil="0.75">
+        <div class="biz__pin">
+          <div class="biz__window">
+            <!--
+              Video aéreo (dron): coloca el archivo en public/media/dron.mp4 y descomenta.
+              Si existe, reemplaza a la imagen y se reproduce en silencio y en bucle.
+              <video class="biz__video" src="media/dron.mp4" muted loop playsinline preload="metadata" poster="img/empresas.webp"></video>
+            -->
+            <img class="biz__img" src="img/empresas.webp" alt="Paneles solares sobre techo de nave comercial" loading="lazy" width="1280" height="719" />
+            <img class="biz__img biz__img--2" src="img/industrial.webp" alt="" loading="lazy" width="1152" height="1152" />
+          </div>
+          <div class="biz__content container">
+            <p class="eyebrow">Soluciones para empresas</p>
+            <h2 class="display display--md">Reduce tus costos energéticos convirtiendo un gasto operativo en una inversión.</h2>
+            <p class="lead">
+              Diseñamos sistemas fotovoltaicos para comercios, oficinas, industrias y proyectos de mayor escala, buscando
+              aprovechar al máximo el espacio disponible y las condiciones de operación de cada instalación.
+            </p>
+            <a class="btn btn--gold magnetic" href="#contacto">
+              Solicitar evaluación
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SERVICIOS ============ -->
+      <section class="services section" id="servicios" data-veil="0.86">
+        <div class="container">
+          <p class="eyebrow eyebrow--gold" data-reveal>Más de nuestros servicios profesionales</p>
+          <div class="services__lead">
+            <h2 class="h2" data-split>Instala tus aires acondicionados sin aumentar tu recibo de luz.</h2>
+            <p data-reveal>
+              Te diseñamos soluciones integrales para que puedas disfrutar el clima de tu hogar a tu gusto sin preocuparte
+              por dañar tu instalación eléctrica ni pagarle una fortuna a CFE.
+            </p>
+          </div>
+
+          <div class="cards">
+            <article class="card tilt" data-card>
+              <div class="card__media"><img src="img/paneles-techo.webp" alt="" loading="lazy" width="1280" height="719" /></div>
+              <div class="card__body">
+                <span class="card__icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="7" /><path d="M24 5v6M24 37v6M5 24h6M37 24h6M10.5 10.5l4.2 4.2M33.3 33.3l4.2 4.2M10.5 37.5l4.2-4.2M33.3 14.7l4.2-4.2" /></svg></span>
+                <h3>Instalaciones profesionales</h3>
+                <p>Ofrecemos servicios de calidad para tus proyectos fotovoltaicos: instalación, mantenimiento, soporte y asesoría.</p>
+              </div>
+            </article>
+            <article class="card tilt" data-card>
+              <div class="card__media"><img src="img/electrico.webp" alt="" loading="lazy" width="1280" height="719" /></div>
+              <div class="card__body">
+                <span class="card__icon"><svg viewBox="0 0 48 48"><path d="M18 6v10M30 6v10M14 16h20v8a10 10 0 0 1-20 0zM24 34v8" /></svg></span>
+                <h3>Servicios eléctricos</h3>
+                <p>Soluciones, mantenimiento, diagnóstico y adecuaciones eléctricas para proyectos residenciales, comerciales e industriales.</p>
+              </div>
+            </article>
+            <article class="card tilt" data-card>
+              <div class="card__media"><img src="img/atardecer.webp" alt="" loading="lazy" width="1280" height="719" /></div>
+              <div class="card__body">
+                <span class="card__icon"><svg viewBox="0 0 48 48"><path d="M27 4L11 27h12l-3 17 17-24H25z" /></svg></span>
+                <h3>Generadores eléctricos</h3>
+                <p>Sistemas de respaldo para mantener tus operaciones funcionando cuando más lo necesitas.</p>
+              </div>
+            </article>
+            <article class="card tilt" data-card>
+              <div class="card__media"><img src="img/hvac.webp" alt="" loading="lazy" width="643" height="361" /></div>
+              <div class="card__body">
+                <span class="card__icon"><svg viewBox="0 0 48 48"><path d="M24 4v40M6.7 14l34.6 20M6.7 34l34.6-20M19 7l5 5 5-5M19 41l5-5 5 5" /></svg></span>
+                <h3>Climatización / HVAC</h3>
+                <p>Instalación, mantenimiento y soluciones de climatización eficientes para espacios residenciales y comerciales.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ POR QUÉ ELEGIRNOS ============ -->
+      <section class="why section" id="por-que" data-veil="0.8">
+        <div class="container why__grid">
+          <div class="why__aside">
+            <h2 class="display" data-split>¿Por qué elegirnos?</h2>
+            <div class="why__stat" data-reveal>
+              <p class="stat stat--xl"><span class="stat__num" data-count="20">0</span><span class="stat__unit">días</span></p>
+              <p>Te garantizamos la puesta en marcha en 20 días, con acompañamiento en trámites con CFE.</p>
+            </div>
+          </div>
+          <ol class="why__list">
+            <li class="why__item">
+              <span class="why__icon"><svg viewBox="0 0 48 48"><rect x="8" y="16" width="26" height="18" rx="2" /><path d="M34 22h4v6h-4M14 22v6M20 22v6" /></svg></span>
+              <div><h3>Sistemas más allá de lo convencional</h3><p>Además de los sistemas convencionales, contamos con experiencia en sistemas fotovoltaicos híbridos y aislados.</p></div>
+            </li>
+            <li class="why__item">
+              <span class="why__icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="6" /><path d="M24 6v5M24 37v5M6 24h5M37 24h5M11.3 11.3l3.5 3.5M33.2 33.2l3.5 3.5M11.3 36.7l3.5-3.5M33.2 14.8l3.5-3.5" /></svg></span>
+              <div><h3>Soluciones integrales</h3><p>Complementamos nuestros servicios de energía solar con soluciones eléctricas, HVAC y sistemas de generación de respaldo.</p></div>
+            </li>
+            <li class="why__item">
+              <span class="why__icon"><svg viewBox="0 0 48 48"><path d="M30 8l10 10-20 20H10V28z" /><path d="M25 13l10 10" /></svg></span>
+              <div><h3>Instalación profesional</h3><p>Cuidamos tanto la instalación como la integración eléctrica del sistema, sin descuidar la estética.</p></div>
+            </li>
+            <li class="why__item">
+              <span class="why__icon"><svg viewBox="0 0 48 48"><path d="M8 40L40 8M8 40h12M8 40V28M16 32l4 4M22 26l4 4M28 20l4 4" /></svg></span>
+              <div><h3>Diseño personalizado</h3><p>Cada instalación se analiza de acuerdo con el consumo, espacio disponible y necesidades del cliente.</p></div>
+            </li>
+            <li class="why__item">
+              <span class="why__icon"><svg viewBox="0 0 48 48"><rect x="10" y="6" width="28" height="36" rx="3" /><path d="M17 24l5 5 9-10" /></svg></span>
+              <div><h3>Acompañamiento en trámites con CFE</h3><p>Te garantizamos la puesta en marcha en 20 días.</p></div>
+            </li>
+            <li class="why__item">
+              <span class="why__icon"><svg viewBox="0 0 48 48"><path d="M6 38h36M10 30l9-9 7 6 12-14" /><path d="M32 13h6v6" /></svg></span>
+              <div><h3>Seguimiento y monitoreo</h3><p>Te ayudamos a mantener visibilidad sobre el funcionamiento de tu sistema.</p></div>
+            </li>
+            <li class="why__item">
+              <span class="why__icon"><svg viewBox="0 0 48 48"><path d="M24 5l15 6v11c0 10-7 17-15 21-8-4-15-11-15-21V11z" /><path d="M17 24l5 5 9-10" /></svg></span>
+              <div><h3>Materiales y equipos de calidad</h3><p>Todos los equipos que utilizamos están certificados y garantizados.</p></div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ============ CONTACTO ============ -->
+      <section class="contact" id="contacto" data-veil="0.15">
+        <div class="container contact__grid">
+          <div class="contact__intro">
+            <h2 class="display" data-split>¿Listo para aprovechar mejor tu energía?</h2>
+            <p class="lead" data-reveal>
+              Agenda una visita técnica sin compromiso y comienza a ahorrar en tus próximos recibos de luz.
+            </p>
+            <ul class="contact__list" data-reveal>
+              <li>
+                <span>Teléfono</span>
+                <a href="tel:+526561031243">656 103 1243</a>
+              </li>
+              <li>
+                <span>Teléfono</span>
+                <a href="tel:+526566621834">656 662 1834</a>
+              </li>
+              <li>
+                <span>Correo</span>
+                <a href="mailto:asr.renovables@gmail.com">asr.renovables@gmail.com</a>
+              </li>
+              <li>
+                <span>Ubicación</span>
+                <p>Ciudad Juárez, Chihuahua</p>
+              </li>
+            </ul>
+          </div>
+
+          <form class="quote" data-reveal novalidate>
+            <h3>Solicita tu cotización</h3>
+            <div class="field">
+              <label for="q-name">Nombre</label>
+              <input id="q-name" name="nombre" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="q-phone">Teléfono</label>
+              <input id="q-phone" name="telefono" type="tel" autocomplete="tel" inputmode="tel" required />
+            </div>
+            <fieldset class="field">
+              <legend>Tipo de proyecto</legend>
+              <div class="pills">
+                <label><input type="radio" name="tipo" value="Residencial" checked /><span>Residencial</span></label>
+                <label><input type="radio" name="tipo" value="Comercial" /><span>Comercial</span></label>
+                <label><input type="radio" name="tipo" value="Industrial" /><span>Industrial</span></label>
+              </div>
+            </fieldset>
+            <fieldset class="field">
+              <legend>Servicio</legend>
+              <div class="pills">
+                <label><input type="checkbox" name="servicio" value="Paneles solares" checked /><span>Paneles solares</span></label>
+                <label><input type="checkbox" name="servicio" value="Servicios eléctricos" /><span>Servicios eléctricos</span></label>
+                <label><input type="checkbox" name="servicio" value="HVAC" /><span>HVAC</span></label>
+                <label><input type="checkbox" name="servicio" value="Generadores eléctricos" /><span>Generadores</span></label>
+              </div>
+            </fieldset>
+            <div class="field">
+              <label for="q-msg">Cuéntanos de tu proyecto <small>(opcional)</small></label>
+              <textarea id="q-msg" name="mensaje" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn--gold btn--block magnetic">
+              Enviar solicitud
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </button>
+            <p class="quote__note" role="status" aria-live="polite">Se abrirá tu aplicación de correo con la solicitud lista para enviar.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__grid">
+        <img class="footer__logo" src="img/logo/logo-light.png" alt="ASR Renovables" width="900" height="740" loading="lazy" />
+        <div>
+          <p class="footer__title">Contacto</p>
+          <a href="tel:+526561031243">656 103 1243</a>
+          <a href="tel:+526566621834">656 662 1834</a>
+          <a href="mailto:asr.renovables@gmail.com">asr.renovables@gmail.com</a>
+          <p>Ciudad Juárez, Chihuahua</p>
+        </div>
+        <div>
+          <p class="footer__title">Servicios</p>
+          <a href="#paneles">Paneles solares</a>
+          <a href="#servicios">Instalaciones eléctricas</a>
+          <a href="#servicios">HVAC</a>
+          <a href="#servicios">Generadores de emergencia</a>
+        </div>
+      </div>
+      <div class="container footer__bottom">
+        <p>© <span data-year>2026</span> ASR Renovables. Todos los derechos reservados.</p>
+        <a href="#inicio" class="footer__top">Volver al amanecer ↑</a>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
