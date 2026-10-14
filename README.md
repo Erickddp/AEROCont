@@ -52,13 +52,16 @@ public/img/           Fotos reales de ASR (webp), logos de marcas y logo de ASR
 
 ## Pendientes del cliente
 
-- **Video de dron** (`dji_fly_20260107_144246_666_…mp4` del sitio actual). Guárdalo como `public/media/dron.mp4` y descomenta la etiqueta `<video>` en la sección `#empresas` de `index.html`.
-- **Foto original del hero** (paneles al atardecer del sitio actual), en la mejor resolución disponible.
-- **Foto real de un generador eléctrico**. Hoy esa tarjeta usa la foto del atardecer, igual que el sitio original.
-- **Foto de HVAC en mayor resolución**. La actual mide 643 × 361 px.
-- **WhatsApp**: confirmar qué número lo usa para agregar un botón directo.
-- **Formulario**: hoy abre el correo del visitante con la solicitud lista. Si quieren que llegue sin abrir el correo, se puede conectar a Formspree, Netlify Forms o similar.
-- **Dominio** y **hosting** donde se publicará.
+- **Formspree** (formulario directo al correo): crear cuenta en formspree.io y pegar la URL en `data-endpoint` del `<form class="quote">` en `index.html`. Sin eso, el formulario abre el correo del visitante.
+- **Foto original del hero** (paneles al atardecer), en la mejor resolución posible.
+- **Foto real de un generador eléctrico** (hoy usa la del atardecer) y **foto de HVAC** en mayor resolución (la actual mide 643 × 361 px).
+- **Proyectos o testimonios** reales, con fotos, para agregar una sección de casos.
+- Tras publicar: dar de alta el dominio en Google Search Console y enviar `https://asrrenovables.com/sitemap.xml`.
+
+## Video del dron
+
+- `public/media/dron.mp4` (720p, 30 s, ~7 MB) y `dron-movil.mp4` (480p, ~2.4 MB) son versiones comprimidas del original, sin audio. Se cargan solo al acercarse a la sección Empresas, y no en modo ahorro de datos ni con movimiento reducido.
+- El original (265 MB) está en `originales/` (ignorado por git, no se publica).
 
 ## Notas
 

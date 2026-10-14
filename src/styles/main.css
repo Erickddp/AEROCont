@@ -2141,3 +2141,12 @@ body.no-webgl::before {
   }
 }
 
+
+/* video de dron: aparece con fundido cuando ya está reproduciendo */
+.biz__video {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.biz__video.is-playing {
+  opacity: 1;
+}

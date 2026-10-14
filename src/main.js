@@ -309,14 +309,26 @@ function initAnimations() {
   /* --- pasos del proceso y puntos de "por qué" visibles sin animación --- */
   $$('.step, .why__item').forEach((el) => el.classList.add('is-on'));
 
-  /* --- video de empresas: solo reproduce mientras se ve --- */
+  /* --- video de empresas: se carga al acercarse y solo reproduce mientras se ve --- */
   const video = $('.biz__video');
-  if (video) {
+  const saveData = navigator.connection?.saveData;
+  if (video && !reduced && !saveData) {
+    const load = () => {
+      if (video.src) return;
+      video.src = mobile ? video.dataset.srcMobile : video.dataset.src;
+      video.addEventListener('playing', () => video.classList.add('is-playing'), { once: true });
+    };
     ScrollTrigger.create({
       trigger: '.biz',
-      start: 'top bottom',
+      start: 'top 150%',
       end: 'bottom top',
-      onToggle: (self) => (self.isActive ? video.play().catch(() => {}) : video.pause()),
+      onEnter: load,
+      onEnterBack: load,
+      onToggle: (self) => {
+        if (!video.src) return;
+        if (self.isActive) video.play().catch(() => {});
+        else video.pause();
+      },
     });
   }
 }

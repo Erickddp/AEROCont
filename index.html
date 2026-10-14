@@ -15,17 +15,21 @@
     <meta name="ICBM" content="31.6904, -106.4245" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://asrrenovables.com/" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://asrrenovables.com/" />
+    <meta property="og:site_name" content="ASR Renovables" />
     <meta property="og:locale" content="es_MX" />
     <meta property="og:title" content="ASR Renovables · Paneles solares en Ciudad Juárez" />
     <meta
       property="og:description"
       content="Más que instalar paneles, diseñamos soluciones de energía. Residencial, comercial e industrial."
     />
-    <meta property="og:image" content="img/atardecer.webp" />
+    <meta property="og:image" content="https://asrrenovables.com/img/atardecer.webp" />
+    <meta property="og:image:alt" content="Paneles solares al atardecer, ASR Renovables" />
 
     <script type="application/ld+json">
       {
@@ -33,8 +37,9 @@
         "@type": ["LocalBusiness", "ElectricalContractor"],
         "name": "ASR Renovables",
         "description": "Soluciones solares y eléctricas diseñadas para la eficiencia, control y ahorro de energía en Ciudad Juárez, Chihuahua.",
-        "image": "img/atardecer.webp",
-        "logo": "img/logo/logo-light.png",
+        "url": "https://asrrenovables.com/",
+        "image": "https://asrrenovables.com/img/atardecer.webp",
+        "logo": "https://asrrenovables.com/img/logo/logo-light.png",
         "telephone": ["+52 656 103 1243", "+52 656 662 1834"],
         "email": "asr.renovables@gmail.com",
         "address": {
@@ -439,13 +444,10 @@
       <section class="biz" id="empresas" data-veil="0.75">
         <div class="biz__pin">
           <div class="biz__window">
-            <!--
-              Video aéreo (dron): coloca el archivo en public/media/dron.mp4 y descomenta.
-              Si existe, reemplaza a la imagen y se reproduce en silencio y en bucle.
-              <video class="biz__video" src="media/dron.mp4" muted loop playsinline preload="metadata" poster="img/empresas.webp"></video>
-            -->
-            <img class="biz__img" src="img/empresas.webp" alt="Paneles solares sobre techo de nave comercial" loading="lazy" width="1280" height="719" />
+            <!-- el video se carga desde main.js (versión ligera en móvil) -->
+            <img class="biz__img" src="img/dron-portada.webp" alt="Vista aérea de paneles solares instalados sobre un techo comercial" loading="lazy" width="1280" height="719" />
             <img class="biz__img biz__img--2" src="img/industrial.webp" alt="" loading="lazy" width="1152" height="1152" />
+            <video class="biz__video" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="media/dron.mp4" data-src-mobile="media/dron-movil.mp4"></video>
           </div>
           <div class="biz__content container">
             <p class="eyebrow">Soluciones para empresas</p>
