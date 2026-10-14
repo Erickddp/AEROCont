@@ -325,33 +325,81 @@ function initAnimations() {
    Formulario de cotización (abre el correo con los datos)
    ========================================================= */
 const form = $('.quote');
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
+const note = $('.quote__note');
+
+function readForm() {
   const data = new FormData(form);
   const name = String(data.get('nombre') || '').trim();
   const phone = String(data.get('telefono') || '').trim();
   const nameEl = $('#q-name');
   const phoneEl = $('#q-phone');
+  const phoneOk = phone.replace(/\D/g, '').length >= 10;
   nameEl.classList.toggle('is-invalid', !name);
-  phoneEl.classList.toggle('is-invalid', phone.replace(/\D/g, '').length < 10);
-  const note = $('.quote__note');
-  if (!name || phone.replace(/\D/g, '').length < 10) {
+  phoneEl.classList.toggle('is-invalid', !phoneOk);
+  if (!name || !phoneOk) {
     note.textContent = 'Por favor escribe tu nombre y un teléfono de 10 dígitos.';
     (!name ? nameEl : phoneEl).focus();
+    return null;
+  }
+  return {
+    nombre: name,
+    telefono: phone,
+    tipo: String(data.get('tipo')),
+    servicio: data.getAll('servicio').join(', ') || 'Por definir',
+    mensaje: String(data.get('mensaje') || '').trim(),
+  };
+}
+
+const toText = (d) =>
+  [
+    `Nombre: ${d.nombre}`,
+    `Teléfono: ${d.telefono}`,
+    `Tipo de proyecto: ${d.tipo}`,
+    `Servicio: ${d.servicio}`,
+    d.mensaje && `Mensaje: ${d.mensaje}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const d = readForm();
+  if (!d) return;
+  const endpoint = form.dataset.endpoint?.trim();
+  const btn = $('button[type="submit"]', form);
+
+  if (endpoint) {
+    // envío directo (Formspree, Netlify Forms, etc.)
+    btn.disabled = true;
+    note.textContent = 'Enviando…';
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ ...d, _subject: `Cotización · ${d.tipo} · ${d.nombre}` }),
+      });
+      if (!res.ok) throw new Error(res.status);
+      form.reset();
+      note.textContent = '¡Gracias! Recibimos tu solicitud y te contactaremos pronto.';
+    } catch {
+      note.textContent = 'No se pudo enviar. Escríbenos por WhatsApp o llama al 656 103 1243.';
+    } finally {
+      btn.disabled = false;
+    }
     return;
   }
-  const servicios = data.getAll('servicio').join(', ') || 'Por definir';
-  const body = [
-    `Nombre: ${name}`,
-    `Teléfono: ${phone}`,
-    `Tipo de proyecto: ${data.get('tipo')}`,
-    `Servicio: ${servicios}`,
-    '',
-    String(data.get('mensaje') || '').trim(),
-  ].join('\n');
-  const subject = `Solicitud de cotización · ${data.get('tipo')} · ${name}`;
-  window.location.href = `mailto:asr.renovables@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  note.textContent = '¡Listo! Se abrió tu aplicación de correo con la solicitud. Si no se abrió, llámanos al 656 103 1243.';
+
+  // sin endpoint: abre el correo del visitante con la solicitud lista
+  const subject = `Solicitud de cotización · ${d.tipo} · ${d.nombre}`;
+  window.location.href = `mailto:asr.renovables@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(toText(d))}`;
+  note.textContent = 'Se abrió tu aplicación de correo con la solicitud. Si no se abrió, llámanos al 656 103 1243.';
+});
+
+$('[data-wa-send]').addEventListener('click', () => {
+  const d = readForm();
+  if (!d) return;
+  const msg = `Hola, quiero una cotización.\n${toText(d)}`;
+  window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
 });
 
 boot();
