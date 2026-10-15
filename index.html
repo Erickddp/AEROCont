@@ -85,10 +85,11 @@
       </a>
       <nav class="nav__links" aria-label="Principal">
         <a href="#paneles">Paneles solares</a>
-        <a href="#hogar">Hogar</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#ahorro">Ahorro</a>
         <a href="#empresas">Empresas</a>
         <a href="#servicios">Servicios</a>
-        <a href="#por-que">Nosotros</a>
+        <a href="#preguntas">Preguntas</a>
       </nav>
       <a href="#contacto" class="btn btn--gold btn--sm nav__cta magnetic">Cotizar ahora</a>
       <button class="nav__burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
@@ -102,8 +103,11 @@
         <a href="#paneles">Paneles solares</a>
         <a href="#hogar">Sistemas para tu hogar</a>
         <a href="#empresas">Soluciones para empresas</a>
+        <a href="#proyectos">Proyectos reales</a>
         <a href="#servicios">Servicios</a>
         <a href="#por-que">¿Por qué elegirnos?</a>
+        <a href="#ahorro">Calcula tu ahorro</a>
+        <a href="#preguntas">Preguntas frecuentes</a>
         <a href="#contacto">Contacto</a>
       </nav>
       <div class="menu__contact">
@@ -123,6 +127,11 @@
       <div class="hud__txt">
         <span class="hud__time">06:15</span>
         <span class="hud__label">Amanecer</span>
+      </div>
+      <div class="hud__energy">
+        <span class="hud__gen"><b class="hud__kwh">0.0</b> kWh</span>
+        <i class="hud__bat"><b></b></i>
+        <span class="hud__cap">Generados hoy · sistema 5 kWp</span>
       </div>
     </div>
 
@@ -178,6 +187,34 @@
               <em>calidad</em> y eficientes, con el compromiso de brindarte el <em>mejor valor</em> por tu inversión.
             </p>
           </div>
+        </div>
+      </section>
+
+      <!-- ============ EL SOL DE JUÁREZ ============ -->
+      <section class="sun section" id="sol" data-veil="0.5">
+        <div class="sun__disc" aria-hidden="true"></div>
+        <div class="container">
+          <p class="eyebrow" data-reveal>El recurso que ya tienes</p>
+          <h2 class="h2 sun__title" data-split>Ciudad Juárez recibe uno de los soles más intensos de México. Tu techo ya lo está recibiendo.</h2>
+          <ul class="sun__grid">
+            <li class="sun__stat">
+              <p class="sun__num"><small>≈</small><span data-count="6">6</span></p>
+              <p class="sun__label">horas solares pico al día, en promedio anual</p>
+            </li>
+            <li class="sun__stat">
+              <p class="sun__num"><span data-count="290">290</span><small>+</small></p>
+              <p class="sun__label">días soleados al año en la región Juárez–El Paso</p>
+            </li>
+            <li class="sun__stat">
+              <p class="sun__num"><span data-count="25">25</span><small>+</small></p>
+              <p class="sun__label">años de garantía de potencia de los fabricantes de paneles que instalamos</p>
+            </li>
+            <li class="sun__stat">
+              <p class="sun__num"><span data-count="98">98</span><small>%</small></p>
+              <p class="sun__label">de reducción posible en tu recibo de CFE con un sistema interconectado</p>
+            </li>
+          </ul>
+          <p class="sun__note" data-reveal>Cifras de referencia. Tu ahorro real depende de tu consumo, tu tarifa y la orientación de tu techo; lo calculamos en la visita técnica.</p>
         </div>
       </section>
 
@@ -440,6 +477,59 @@
         </div>
       </section>
 
+      <!-- ============ PROYECTOS REALES ============ -->
+      <section class="projects section" id="proyectos" data-veil="0.88">
+        <div class="container">
+          <div class="projects__head">
+            <div>
+              <p class="eyebrow" data-reveal>Proyectos reales</p>
+              <h2 class="display display--md" data-split>Esto no es un render. Son instalaciones reales.</h2>
+            </div>
+            <p class="lead" data-reveal>
+              Cada foto es una instalación hecha por nuestro equipo: casas, comercios, naves industriales, respaldo con baterías y trabajos eléctricos.
+            </p>
+          </div>
+          <div class="gallery">
+            <figure class="gallery__item gallery__item--tall" data-speed="0.6">
+              <img src="img/residencial.webp" alt="Vista aérea de casa con paneles solares en azotea" loading="lazy" width="720" height="720" />
+              <figcaption><span>Residencial</span>Azotea de casa habitación</figcaption>
+            </figure>
+            <figure class="gallery__item gallery__item--wide" data-speed="-0.3">
+              <img src="img/industrial.webp" alt="Nave industrial con techo cubierto de paneles solares" loading="lazy" width="1152" height="1152" />
+              <figcaption><span>Industrial</span>Nave con techo de lámina</figcaption>
+            </figure>
+            <figure class="gallery__item" data-speed="0.9">
+              <img src="img/interconectado.webp" alt="Inversor Growatt y estructura de un sistema interconectado" loading="lazy" width="1280" height="1280" />
+              <figcaption><span>Interconectado</span>Inversor Growatt</figcaption>
+            </figure>
+            <figure class="gallery__item" data-speed="0.2">
+              <img src="img/comercial.webp" alt="Local comercial con paneles solares en la azotea" loading="lazy" width="720" height="720" />
+              <figcaption><span>Comercial</span>Local con azotea solar</figcaption>
+            </figure>
+            <figure class="gallery__item gallery__item--tall" data-speed="-0.5">
+              <img src="img/hibrido.webp" alt="Inversor híbrido Hoymiles con batería y centro de carga" loading="lazy" width="1280" height="1280" />
+              <figcaption><span>Híbrido</span>Hoymiles con respaldo de batería</figcaption>
+            </figure>
+            <figure class="gallery__item gallery__item--wide" data-speed="0.5">
+              <img src="img/paneles-techo.webp" alt="Paneles solares instalados sobre techo de lámina" loading="lazy" width="1280" height="719" />
+              <figcaption><span>Instalación</span>Arreglo sobre techo de lámina</figcaption>
+            </figure>
+            <figure class="gallery__item" data-speed="-0.2">
+              <img src="img/aislado.webp" alt="Banco de baterías e inversor de un sistema aislado" loading="lazy" width="1280" height="1280" />
+              <figcaption><span>Aislado</span>Banco de baterías</figcaption>
+            </figure>
+            <figure class="gallery__item" data-speed="0.7">
+              <img src="img/personalizado.webp" alt="Casa de ladrillo con sistema solar personalizado" loading="lazy" width="720" height="720" />
+              <figcaption><span>Personalizado</span>Estructura a la medida</figcaption>
+            </figure>
+            <figure class="gallery__item gallery__item--wide" data-speed="-0.4">
+              <img src="img/electrico.webp" alt="Centro de carga con interruptores termomagnéticos ABB" loading="lazy" width="1280" height="719" />
+              <figcaption><span>Eléctrico</span>Centro de carga e interruptores</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
       <!-- ============ EMPRESAS ============ -->
       <section class="biz" id="empresas" data-veil="0.75">
         <div class="biz__pin">
@@ -553,6 +643,80 @@
               <div><h3>Materiales y equipos de calidad</h3><p>Todos los equipos que utilizamos están certificados y garantizados.</p></div>
             </li>
           </ol>
+        </div>
+      </section>
+
+      <!-- ============ CALCULADORA DE AHORRO ============ -->
+      <section class="savings section" id="ahorro" data-veil="0.7">
+        <div class="container">
+          <p class="eyebrow" data-reveal>Calcula tu ahorro</p>
+          <h2 class="h2" data-split>¿Cuántos paneles necesita tu techo?</h2>
+          <div class="calc">
+            <div class="calc__inputs">
+              <div class="calc__field">
+                <label for="c-bill">¿Cuánto pagas de luz cada bimestre?</label>
+                <output data-val="bill">$3,000</output>
+                <input type="range" id="c-bill" min="500" max="30000" step="100" value="3000" />
+              </div>
+              <div class="calc__field">
+                <label for="c-kwh">Consumo por bimestre <small>(viene en tu recibo de CFE)</small></label>
+                <output data-val="kwh">900 kWh</output>
+                <input type="range" id="c-kwh" min="200" max="8000" step="50" value="900" />
+              </div>
+              <p class="calc__note">Estimación con 5.8 horas solares pico, paneles de 550 W y 78 % de rendimiento real. La cifra exacta la definimos en la visita técnica.</p>
+            </div>
+            <div class="calc__results" aria-live="polite">
+              <div class="calc__main">
+                <p class="calc__big"><span data-out="panels">0</span><small>paneles</small></p>
+                <p class="calc__sub"><span data-out="kwp">0</span> kWp · aprox. <span data-out="area">0</span> m² de techo</p>
+              </div>
+              <dl class="calc__grid">
+                <div><dt>Ahorro estimado al año</dt><dd data-out="save">$0</dd></div>
+                <div><dt>CO₂ evitado al año</dt><dd><span data-out="co2">0</span> t</dd></div>
+              </dl>
+              <a class="btn btn--gold btn--block" href="#contacto" data-calc-quote>
+                Quiero mi cotización exacta
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PREGUNTAS FRECUENTES ============ -->
+      <section class="faq section" id="preguntas" data-veil="0.85">
+        <div class="container faq__grid">
+          <div>
+            <p class="eyebrow" data-reveal>Preguntas frecuentes</p>
+            <h2 class="h2" data-split>Lo que nos preguntan antes de dar el paso.</h2>
+            <p data-reveal>¿Tienes otra duda? <a class="link" href="https://wa.me/526566621834?text=Hola%2C%20tengo%20una%20pregunta" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>.</p>
+          </div>
+          <div class="faq__list">
+            <details>
+              <summary>¿Cuánto cuesta un sistema de paneles solares?<i aria-hidden="true"></i></summary>
+              <p>Depende de tu consumo, del tipo de techo y de si quieres respaldo con baterías. Por eso hacemos una visita técnica sin costo: revisamos tus recibos de CFE, medimos tu techo y te entregamos una cotización exacta, sin compromiso.</p>
+            </details>
+            <details>
+              <summary>¿Qué es la medición neta (interconexión con CFE)?<i aria-hidden="true"></i></summary>
+              <p>Es el contrato con CFE que permite que tu sistema trabaje junto con la red. Lo que generas de día se descuenta de tu consumo y CFE cambia tu medidor por uno bidireccional. Nosotros nos encargamos del trámite.</p>
+            </details>
+            <details>
+              <summary>¿Qué pasa si se va la luz?<i aria-hidden="true"></i></summary>
+              <p>Un sistema interconectado se apaga por seguridad cuando falla la red. Si necesitas seguir con energía durante un apagón, la opción es un sistema híbrido con baterías, o un generador de emergencia.</p>
+            </details>
+            <details>
+              <summary>¿Cuánto tiempo tarda la instalación?<i aria-hidden="true"></i></summary>
+              <p>Garantizamos la puesta en marcha en un máximo de 20 días. La instalación física suele tomar de uno a pocos días; el resto del tiempo es ingeniería, material y el trámite con CFE.</p>
+            </details>
+            <details>
+              <summary>¿Cuánto duran los paneles y qué mantenimiento necesitan?<i aria-hidden="true"></i></summary>
+              <p>Los fabricantes con los que trabajamos ofrecen garantías de potencia de 25 años o más. El mantenimiento es sencillo: limpieza periódica (en Juárez el polvo es lo que más afecta) y una revisión del sistema. Ofrecemos ese servicio.</p>
+            </details>
+            <details>
+              <summary>¿Me ayudan si tengo tarifa DAC?<i aria-hidden="true"></i></summary>
+              <p>Sí. Si tu consumo te llevó a tarifa DAC (alto consumo), pagas cada kWh mucho más caro. Un sistema solar bien dimensionado baja tu consumo de la red y es de los casos donde más rápido se recupera la inversión.</p>
+            </details>
+          </div>
         </div>
       </section>
 
