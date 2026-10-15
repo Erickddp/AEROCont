@@ -790,7 +790,15 @@ if (calc) {
 $$('.faq details').forEach((d) =>
   d.addEventListener('toggle', () => {
     if (d.open) $$('.faq details').forEach((o) => o !== d && (o.open = false));
-    ScrollTrigger.refresh();
+  })
+);
+
+// cualquier contenedor que se abre cambia la altura: recalcular los pins y animaciones
+let refreshTimer;
+$$('details').forEach((d) =>
+  d.addEventListener('toggle', () => {
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 60);
   })
 );
 
