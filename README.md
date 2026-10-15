@@ -2,7 +2,9 @@
 
 Sitio de una sola página para **ASR Renovables** (Ciudad Juárez, Chihuahua): paneles solares, servicios eléctricos, HVAC y generadores.
 
-El concepto es **«un día de energía»**. El fondo es un barrio 3D de techos planos (como los de las fotos reales de ASR) y, al hacer scroll, el sol cruza el cielo del amanecer al atardecer. Al mismo tiempo, cada vez más techos "se instalan" con paneles solares. Un reloj solar abajo a la izquierda marca la hora del recorrido.
+El concepto es **«un día de energía»**. El fondo es un barrio 3D de techos planos (como los de las fotos reales de ASR) y, al hacer scroll, el sol cruza el cielo del amanecer al atardecer. Al mismo tiempo, cada vez más techos "se instalan" con paneles solares.
+
+La **batería solar** acompaña todo el recorrido: el sol avanza por su arco, la hora cambia (06:15 → 20:10) y la batería de un sistema de 5 kWp se llena conforme bajas. Llega al 100 % justo en Contacto («Atardecer · tu batería, llena»). En pantallas anchas (≥ 1440 px) es vertical, en el margen izquierdo; en móvil flota al centro, abajo, como protagonista del recorrido (sin botones de Llamar / WhatsApp encima). Mientras bajas, entran chispas de energía a la batería; al llenarse se pone verde y late.
 
 ## Tecnología
 
@@ -37,25 +39,30 @@ public/img/           Fotos reales de ASR (webp), logos de marcas y logo de ASR
 
 ## Recorrido (secciones)
 
-1. **Inicio**: amanecer sobre el barrio, logo y llamado a cotizar.
-2. **Compromiso**: el texto se ilumina palabra por palabra.
-3. **Paneles solares**: foto con entrada en profundidad.
-4. **Proceso**: 5 pasos en recorrido horizontal fijado.
-5. **Monitoreo**: teléfono en 3D con la captura real de monitoreo.
-6. **Residencial / Comercial / Industrial**: túnel 3D de fotos.
-7. **Hogar**: interconectado (contador 98%), híbrido y aislado en tarjetas apiladas.
-8. **Conoce nuestro trabajo**: personalizados, K2, marquesina de marcas y la foto del instalador, que se abre a pantalla completa.
-9. **Empresas**: ventana que se expande a pantalla completa (lista para video de dron).
-10. **Servicios**: 4 tarjetas con inclinación 3D.
-11. **¿Por qué elegirnos?**: los puntos se encienden conforme lees (contador de 20 días).
-12. **Contacto**: atardecer y formulario de cotización.
+1. **Inicio (amanecer)**: logo, llamado a cotizar y 3 garantías (visita sin costo, trámite CFE, 20 días).
+2. **Tu ventaja**: 4 cifras del sol de Juárez.
+3. **Soluciones**: interconectado, híbrido y aislado lado a lado, con "Cómo funciona" desplegable.
+4. **Proyectos (mediodía)**: cada instalación en su propia tarjeta, con filtro Casas / Comercios / Industria y visor de foto grande. Debajo, marcas.
+5. **Clientes satisfechos**: testimonios y botón para dejar reseña.
+6. **Empresas**: video de dron y deducción del 100 % (Art. 34 LISR).
+7. **Servicios (tarde)**: solar, eléctrico, clima y generadores.
+8. **Cómo trabajamos + ¿Por qué ASR?**: 5 pasos y 6 razones con la foto del instalador.
+9. **Calculadora de ahorro** y **Preguntas frecuentes**.
+10. **Contacto (atardecer)**: la batería llega al 100 %; formulario por WhatsApp o correo.
+
+En móvil, soluciones, proyectos y testimonios son carruseles horizontales (se deslizan con el dedo) para que la página no sea eterna.
+
+### Agregar un proyecto
+
+Copia un `<article class="project">` en `index.html`, cambia la foto, `data-cat` (`residencial`, `comercial` o `industrial`; puede llevar varias separadas por espacio) y los textos. El filtro y el visor funcionan solos.
 
 ## Pendientes del cliente
 
 - **Formspree** (formulario directo al correo): crear cuenta en formspree.io y pegar la URL en `data-endpoint` del `<form class="quote">` en `index.html`. Sin eso, el formulario abre el correo del visitante.
 - **Foto original del hero** (paneles al atardecer), en la mejor resolución posible.
 - **Foto real de un generador eléctrico** (hoy usa la del atardecer) y **foto de HVAC** en mayor resolución (la actual mide 643 × 361 px).
-- **Proyectos o testimonios** reales, con fotos, para agregar una sección de casos.
+- **Testimonios reales** (obligatorio antes de publicar): los 3 de la sección Clientes son ejemplos de formato y llevan la etiqueta "Ejemplo". Reemplazarlos por reseñas reales, con permiso del cliente, y borrar los `span.review__demo`.
+- **Datos de cada proyecto**: kWp, número de paneles y colonia, para sumarlos a las tarjetas de proyecto.
 - Tras publicar: dar de alta el dominio en Google Search Console y enviar `https://asrrenovables.com/sitemap.xml`.
 
 ## Video del dron
