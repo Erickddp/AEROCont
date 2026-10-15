@@ -2813,3 +2813,35 @@ body.no-webgl::before {
     max-width: none;
   }
 }
+
+/* barra Llamar / WhatsApp: los botones se reparten el ancho y nunca se salen de la pantalla */
+@media (max-width: 900px) {
+  .fab {
+    box-sizing: border-box;
+    width: 100%;
+    padding-inline: max(10px, env(safe-area-inset-left)) max(10px, env(safe-area-inset-right));
+  }
+  .fab a {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0 10px;
+    gap: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .fab svg {
+    flex: none;
+    width: 20px;
+    height: 20px;
+  }
+  .fab span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* evita que cualquier elemento ensanche la página en móvil (la barra inferior quedaba recortada) */
+html,
+body {
+  overflow-x: clip;
+}
