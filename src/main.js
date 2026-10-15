@@ -114,19 +114,37 @@ function introTimeline() {
     .from('.hero__services li', { opacity: 0, y: 14, stagger: 0.06, duration: 0.9 }, '-=0.9')
     .from('.hero__contact a', { opacity: 0, x: 20, stagger: 0.08, duration: 1 }, '-=0.9')
     .from('.nav', { yPercent: -100, opacity: 0, duration: 1.2 }, '-=1.2')
-    .from('.scroll-cue', { opacity: 0, duration: 1 }, '-=0.6')
-    .to('.hud', { opacity: 1, duration: 1 }, '-=0.8');
+    .from('.scroll-cue', { opacity: 0, duration: 1 }, '-=0.6');
 }
 
 /* =========================================================
    Scroll → mundo 3D (cámara, hora del día, velo)
    ========================================================= */
+const hud = $('.hud');
 const hudTime = $('.hud__time');
 const hudLabel = $('.hud__label');
-const hudSun = $('.hud__sun');
 const hudKwh = $('.hud__kwh');
-const hudBat = $('.hud__bat b');
+const hudFill = $('.hud__fill');
+const hudEqN = $('.hud__eqn');
+const hudEqU = $('.hud__equ');
 const DAY_KWH = 30; // sistema residencial de 5 kWp en Ciudad Juárez, día despejado
+const RING = 2 * Math.PI * 28;
+// equivalencias aproximadas de consumo
+const EQUIV = [
+  { per: 0.015, unit: 'cargas de celular' }, // ~15 Wh por carga completa
+  { per: 0.9, unit: 'horas de minisplit' }, // minisplit inverter de 1 ton
+  { per: 1.4, unit: 'días de refrigerador' }, // refrigerador doméstico
+];
+let hudEq = 0;
+let hudEnergy = 0;
+hudFill.style.strokeDasharray = RING.toFixed(1);
+
+function renderEquiv() {
+  const e = EQUIV[hudEq];
+  const v = hudEnergy / e.per;
+  hudEqN.textContent = v >= 100 ? Math.round(v).toLocaleString('es-MX') : v.toFixed(v < 10 ? 1 : 0);
+  hudEqU.textContent = e.unit;
+}
 
 function updateHud(t) {
   // 06:15 → 20:10 (verano en Ciudad Juárez)
@@ -137,12 +155,28 @@ function updateHud(t) {
   hudLabel.textContent =
     t < 0.12 ? 'Amanecer' : t < 0.38 ? 'Mañana' : t < 0.62 ? 'Mediodía' : t < 0.88 ? 'Tarde' : 'Atardecer';
   const a = Math.PI * t;
-  hudSun.setAttribute('cx', (60 - 54 * Math.cos(a)).toFixed(2));
-  hudSun.setAttribute('cy', (60 - 54 * Math.sin(a)).toFixed(2));
   // la producción sigue la curva del sol: energía acumulada = (1 − cos πt) / 2
   const charge = (1 - Math.cos(a)) / 2;
-  hudKwh.textContent = (DAY_KWH * charge).toFixed(1);
-  hudBat.style.transform = `scaleX(${charge.toFixed(3)})`;
+  hudEnergy = DAY_KWH * charge;
+  hudKwh.textContent = hudEnergy.toFixed(1);
+  hudFill.style.strokeDashoffset = (RING * (1 - charge)).toFixed(1);
+  // el sol del centro brilla más al mediodía
+  hud.style.setProperty('--sun', Math.sin(a).toFixed(3));
+  renderEquiv();
+}
+
+// las equivalencias rotan solas
+if (!reduced) {
+  setInterval(() => {
+    if (!document.body.classList.contains('hud-on')) return;
+    const box = $('.hud__eq');
+    box.classList.add('is-swap');
+    setTimeout(() => {
+      hudEq = (hudEq + 1) % EQUIV.length;
+      renderEquiv();
+      box.classList.remove('is-swap');
+    }, 250);
+  }, 3200);
 }
 
 function initScrollWorld() {
@@ -179,12 +213,21 @@ function initScrollWorld() {
   }
   syncVeil();
 
-  // el reloj solar se oculta al llegar a contacto (no tapa los datos ni el formulario)
+  // medidor solar: fuera de la portada (no tapa el inicio) y fuera de contacto
   ScrollTrigger.create({
-    trigger: '.contact',
-    start: 'top 60%',
-    end: 'max',
-    onToggle: (self) => gsap.to('.hud', { opacity: self.isActive ? 0 : 1, duration: 0.5, overwrite: true }),
+    trigger: '.hero',
+    start: 'bottom 70%',
+    endTrigger: '.contact',
+    end: 'top 60%',
+    toggleClass: { targets: document.body, className: 'hud-on' },
+  });
+  // barra Llamar / WhatsApp: aparece a mitad de página y se oculta en contacto (ahí ya está el formulario)
+  ScrollTrigger.create({
+    trigger: '#hogar',
+    start: 'top 80%',
+    endTrigger: '.contact',
+    end: 'top 85%',
+    toggleClass: { targets: document.body, className: 'dock-on' },
   });
 
   if (finePointer && !reduced) {
