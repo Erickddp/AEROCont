@@ -2684,3 +2684,213 @@ body.menu-open .dock > * {
   animation: none;
   opacity: 0;
 }
+
+/* =========================================================
+   Pie de página centrado
+   ========================================================= */
+.footer {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding-top: 72px;
+}
+.footer::before {
+  /* brillo de sol detrás del logo */
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -180px;
+  width: 560px;
+  height: 420px;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(246, 200, 112, 0.18), rgba(227, 166, 60, 0.06) 55%, transparent);
+  pointer-events: none;
+}
+.footer__inner {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+.footer__brand {
+  display: block;
+}
+.footer__logo {
+  width: 150px;
+  height: auto;
+  margin: 0 auto;
+}
+.footer__tagline {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 500;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+}
+.footer__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+.footer__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(243, 238, 228, 0.18);
+  background: rgba(243, 238, 228, 0.04);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cream);
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+.footer__btn:hover {
+  border-color: var(--gold);
+  color: var(--gold-2);
+}
+.footer__btn svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.footer__btn svg[fill='currentColor'],
+.footer__btn .i-wa {
+  fill: currentColor;
+  stroke: none;
+}
+.footer__btn--wa {
+  background: #25d366;
+  border-color: #25d366;
+  color: #06210f;
+}
+.footer__btn--wa:hover {
+  background: #2fe073;
+  border-color: #2fe073;
+  color: #06210f;
+}
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 26px;
+  margin-top: 40px;
+  font-size: 15px;
+}
+.footer__nav a {
+  color: var(--muted);
+  transition: color 0.3s;
+}
+.footer__nav a:hover {
+  color: var(--gold-2);
+}
+.footer__info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 0;
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--soft);
+}
+.footer__info li {
+  display: inline-flex;
+  align-items: center;
+}
+.footer__info li + li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  margin-inline: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.7;
+}
+.footer__info a:hover {
+  color: var(--gold-2);
+}
+.footer__bottom {
+  justify-content: center;
+  align-items: center;
+  gap: 8px 24px;
+  margin-top: 40px;
+  text-align: center;
+}
+.footer__top {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  transition: border-color 0.3s, color 0.3s;
+}
+.footer__top:hover {
+  border-color: var(--gold);
+}
+
+@media (max-width: 900px) {
+  .footer {
+    padding-top: 56px;
+  }
+  .footer::before {
+    width: 420px;
+    height: 340px;
+    top: -150px;
+  }
+  .footer__logo {
+    width: 128px;
+  }
+  .footer__actions {
+    width: 100%;
+    max-width: 420px;
+  }
+  .footer__btn {
+    flex: 1 1 0;
+    justify-content: center;
+    min-width: 0;
+    padding: 0 12px;
+  }
+  .footer__nav {
+    gap: 10px 20px;
+    margin-top: 32px;
+  }
+  /* en móvil los datos van uno debajo de otro, centrados */
+  .footer__info {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .footer__info li + li::before {
+    display: none;
+  }
+  .footer__bottom {
+    flex-direction: column;
+    margin-top: 32px;
+  }
+}
+.footer__btn svg {
+  flex: none;
+}
+.footer__tagline {
+  text-wrap: balance;
+}
+@media (max-width: 900px) {
+  .footer__info {
+    align-items: center;
+  }
+}
+@media (max-width: 900px) {
+  .footer__btn--wa {
+    order: -1;
+    flex-basis: 100%;
+  }
+}
