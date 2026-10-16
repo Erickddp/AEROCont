@@ -62,8 +62,8 @@
         ]
       }
     </script>
-    <script type="module" crossorigin src="./assets/index-BljHuPhl.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CpIQPVwP.css">
+    <script type="module" crossorigin src="./assets/index-DT9ofvYp.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BdO9kGW-.css">
   </head>
   <body>
     <!-- Pantalla de carga -->
@@ -180,8 +180,15 @@
           </h1>
           <p class="hero__lead">Paga menos luz con el sol de Juárez. Paneles solares, electricidad y clima para casas y negocios.</p>
           <div class="hero__actions">
-            <a class="btn btn--gold" href="#contacto">Cotizar gratis <svg aria-hidden="true"><use href="#i-arrow" /></svg></a>
-            <a class="btn btn--ghost" href="https://wa.me/526566621834?text=Hola%2C%20quiero%20una%20cotizaci%C3%B3n" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa" /></svg>WhatsApp</a>
+            <form class="quick" data-quick novalidate>
+              <label for="q-quick">¿Cuánto pagas de luz al bimestre?</label>
+              <div class="quick__row">
+                <span class="quick__cur" aria-hidden="true">$</span>
+                <input id="q-quick" type="text" inputmode="numeric" autocomplete="off" placeholder="3,000" maxlength="7" />
+                <button class="btn btn--gold" type="submit">Ver mi ahorro <svg aria-hidden="true"><use href="#i-arrow" /></svg></button>
+              </div>
+            </form>
+            <a class="btn btn--ghost hero__wa" href="https://wa.me/526566621834?text=Hola%2C%20quiero%20una%20cotizaci%C3%B3n" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa" /></svg>WhatsApp</a>
           </div>
           <ul class="hero__trust">
             <li><svg aria-hidden="true"><use href="#i-check" /></svg>Visita técnica sin costo</li>
@@ -200,7 +207,7 @@
         <div class="sun__disc" aria-hidden="true"></div>
         <div class="container">
           <p class="eyebrow" data-reveal>Tu ventaja</p>
-          <h2 class="h2 sun__title" data-split>En Juárez el sol sobra. Tu techo puede convertirlo en ahorro.</h2>
+          <h2 class="h2 sun__title" data-split>En Juárez <span class="hl">el sol sobra</span>. Tu techo puede convertirlo en ahorro.</h2>
           <ul class="sun__grid">
             <li class="sun__stat">
               <p class="sun__num"><small>≈</small><span data-count="6">6</span></p>
@@ -238,7 +245,7 @@
           <div class="head">
             <div>
               <p class="eyebrow" data-reveal>Paneles solares</p>
-              <h2 class="h2" data-split>Elige cómo quieres usar el sol.</h2>
+              <h2 class="h2" data-split>Elige cómo quieres <span class="hl">usar el sol</span>.</h2>
             </div>
             <p class="head__aside" data-reveal>Primero revisamos tu recibo, tu techo y tu instalación. Luego te recomendamos el sistema que sí te conviene.</p>
           </div>
@@ -532,10 +539,12 @@
           <div class="head">
             <div>
               <p class="eyebrow" data-reveal>Cómo trabajamos</p>
-              <h2 class="h2" data-split>De la visita a la conexión en 20 días.</h2>
+              <h2 class="h2" data-split>De la visita a la conexión en <span class="hl">20 días</span>.</h2>
             </div>
             <p class="head__aside" data-reveal>Tú nos das tu recibo. Del resto nos encargamos nosotros.</p>
           </div>
+          <div class="steps-wrap">
+          <div class="steps__rail" aria-hidden="true"><span></span></div>
           <ol class="steps">
             <li class="step" data-card><span class="step__num">1</span><h3>Visita técnica</h3><p>Revisamos recibos, techo e instalación. Sin costo.</p></li>
             <li class="step" data-card><span class="step__num">2</span><h3>Diseño</h3><p>Un sistema a la medida de tu consumo.</p></li>
@@ -543,6 +552,7 @@
             <li class="step" data-card><span class="step__num">4</span><h3>Conexión CFE</h3><p>Hacemos el trámite por ti.</p></li>
             <li class="step" data-card><span class="step__num">5</span><h3>Seguimiento</h3><p>Monitoreo y mantenimiento.</p></li>
           </ol>
+          </div>
 
           <div class="why">
             <figure class="why__photo" data-reveal>
@@ -568,7 +578,7 @@
       <section class="savings section" id="ahorro" data-veil="0.7">
         <div class="container">
           <p class="eyebrow" data-reveal>Calcula tu ahorro</p>
-          <h2 class="h2" data-split>¿Cuántos paneles necesita tu techo?</h2>
+          <h2 class="h2" data-split>¿Cuántos paneles <span class="hl">necesita tu techo</span>?</h2>
           <div class="calc">
             <div class="calc__inputs">
               <div class="calc__field">
@@ -584,7 +594,7 @@
               <details class="more">
                 <summary><span>Cómo lo calculamos</span><i aria-hidden="true"></i></summary>
                 <div class="more__body">
-                  <p>Usamos 5.8 horas solares pico, paneles de 550 W y 78 % de rendimiento real (calor, cableado e inversor). Es una estimación: la cifra exacta la damos en la visita técnica.</p>
+                  <p>Usamos 5.8 horas solares pico, paneles de 550 W y 78 % de rendimiento real (calor, cableado e inversor). El ahorro supone que el sistema cubre el 95 % de tu recibo; a 25 años no contamos aumentos de tarifa ni el desgaste de los paneles. Es una estimación: la cifra exacta la damos en la visita técnica.</p>
                 </div>
               </details>
             </div>
@@ -597,6 +607,20 @@
                 <div><dt>Ahorro al año</dt><dd data-out="save">$0</dd></div>
                 <div><dt>CO₂ evitado al año</dt><dd><span data-out="co2">0</span> t</dd></div>
               </dl>
+              <div class="bill">
+                <p class="bill__title">Tu recibo de CFE cada bimestre</p>
+                <div class="bill__row">
+                  <span>Hoy</span>
+                  <i class="bill__bar bill__bar--now"><b></b></i>
+                  <output data-out="now">$0</output>
+                </div>
+                <div class="bill__row">
+                  <span>Con solar</span>
+                  <i class="bill__bar bill__bar--sun"><b></b></i>
+                  <output data-out="after">$0</output>
+                </div>
+                <p class="bill__total">En 25 años dejas de pagar aprox. <b data-out="save25">$0</b></p>
+              </div>
               <a class="btn btn--gold btn--block" href="#contacto" data-calc-quote>Quiero mi cotización exacta <svg aria-hidden="true"><use href="#i-arrow" /></svg></a>
             </div>
           </div>
@@ -645,7 +669,7 @@
         <div class="container contact__grid">
           <div class="contact__intro">
             <p class="eyebrow" data-reveal>Atardecer · Tu batería, llena</p>
-            <h2 class="display" data-split>¿Listo para pagar menos luz?</h2>
+            <h2 class="display" data-split>¿Listo para pagar <span class="hl">menos luz</span>?</h2>
             <p class="lead" data-reveal>Hoy el sol de Juárez llenó la batería de un sistema de casa. Mañana puede ser el tuyo. Agenda tu visita técnica: es sin costo y sin compromiso.</p>
             <ul class="contact__list" data-reveal>
               <li><span>Teléfono</span><a href="tel:+526561031243">656 103 1243</a></li>
