@@ -22,6 +22,7 @@ const SNAP = new URLSearchParams(location.search).has('snap');
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 // móvil / táctil: scroll nativo del teléfono (más fluido) y video ligero
 const mobile = window.matchMedia('(max-width: 900px), (pointer: coarse)').matches;
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const root = document.documentElement;
 if (reduced) root.classList.add('rm');
 
@@ -97,7 +98,7 @@ function introTimeline() {
     .from('.hero__ren', { yPercent: 110, duration: 1.4 }, '-=1.25')
     .from('.hero__eyebrow', { opacity: 0, y: 20, duration: 1 }, '-=1.2')
     .from('.hero__lead', { opacity: 0, y: 26, duration: 1.1 }, '-=1')
-    .from('.hero__actions > *', { opacity: 0, y: 26, stagger: 0.08, duration: 1 }, '-=0.9')
+    .fromTo('.hero__actions > *', { opacity: 0, y: 26 }, { opacity: 1, y: 0, stagger: 0.08, duration: 1 }, '-=0.9')
     .from('.hero__trust li', { opacity: 0, y: 12, stagger: 0.06, duration: 0.8 }, '-=0.8')
     .from('.scroll-cue', { opacity: 0, duration: 1 }, '-=0.5');
 }
@@ -348,6 +349,7 @@ function initAnimations() {
     const split = SplitText.create(el, { type: 'lines', linesClass: 'split-line-inner', mask: 'lines' });
     gsap.from(split.lines, {
       yPercent: 110,
+      filter: 'blur(10px)',
       duration: 1.2,
       ease: 'expo.out',
       stagger: 0.08,
@@ -544,6 +546,7 @@ $('[data-wa-send]').addEventListener('click', () => {
    Calculadora de ahorro (estimación orientativa)
    ========================================================= */
 const calc = $('.calc');
+let calcApi = null;
 if (calc) {
   const HSP = 5.8; // horas solares pico promedio en Ciudad Juárez
   const PR = 0.78; // rendimiento real del sistema (calor, cableado, inversor)
@@ -580,7 +583,47 @@ if (calc) {
     animateTo('area', panels * PANEL_M2, (v) => fmt.format(v));
     animateTo('save', bill * 6 * 0.95, (v) => money.format(v));
     animateTo('co2', ((kwh * 6) / 1000) * CO2, (v) => fmt1.format(v));
+
+    // recibo: hoy vs. con solar (el sistema cubre ~95 %)
+    const after = bill * 0.05;
+    animateTo('now', bill, (v) => money.format(v));
+    animateTo('after', after, (v) => money.format(v));
+    animateTo('save25', bill * 6 * 0.95 * 25, (v) => money.format(v));
+    if (billShown) {
+      gsap.to(barNow, { scaleX: 1, duration: 0.5, ease: 'power2.out', overwrite: true });
+      gsap.to(barSun, { scaleX: Math.max(0.02, after / bill), duration: 0.5, ease: 'power2.out', overwrite: true });
+    }
   }
+
+  // la barra "con solar" se desploma la primera vez que ves la calculadora
+  const barNow = $('.bill__bar--now b', calc);
+  const barSun = $('.bill__bar--sun b', calc);
+  let billShown = reduced;
+  gsap.set([barNow, barSun], { scaleX: reduced ? 1 : 0 });
+  if (reduced) gsap.set(barSun, { scaleX: 0.05 });
+  else
+    ScrollTrigger.create({
+      trigger: '.bill',
+      start: 'top 85%',
+      once: true,
+      onEnter: () => {
+        gsap
+          .timeline({ onComplete: () => (billShown = true) })
+          .to([barNow, barSun], { scaleX: 1, duration: 0.9, ease: 'power3.out' })
+          .to(barSun, { scaleX: 0.05, duration: 1.3, ease: 'expo.inOut' }, '+=0.35');
+      },
+    });
+
+  calcApi = {
+    // desde la portada: con el pago estimamos el consumo (≈ $3.30 por kWh promedio) y llenamos la calculadora
+    fromBill(bill) {
+      const b = Math.min(30000, Math.max(500, Math.round(bill / 100) * 100));
+      const k = Math.min(8000, Math.max(200, Math.round(bill / 3.3 / 50) * 50));
+      inBill.value = b;
+      inKwh.value = k;
+      update();
+    },
+  };
   [inBill, inKwh].forEach((r) => r.addEventListener('input', update));
   update();
 
@@ -611,3 +654,114 @@ $$('details').forEach((d) =>
 );
 
 boot();
+
+/* =========================================================
+   Cotizador rápido de la portada → calculadora
+   ========================================================= */
+const quick = $('[data-quick]');
+if (quick) {
+  const qIn = $('input', quick);
+  const money0 = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 0 });
+  qIn.addEventListener('input', () => {
+    const digits = qIn.value.replace(/\D/g, '').slice(0, 6);
+    qIn.value = digits ? money0.format(Number(digits)) : '';
+  });
+  quick.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const bill = Number(qIn.value.replace(/\D/g, '')) || 3000;
+    calcApi?.fromBill(bill);
+    scrollToTarget($('#ahorro'));
+    const res = $('.calc__results');
+    res?.classList.remove('is-flash');
+    setTimeout(() => res?.classList.add('is-flash'), reduced ? 0 : 1200);
+    $('.calc__field:nth-child(2)')?.classList.add('is-hint');
+  });
+}
+
+/* =========================================================
+   Detalles modernos: progreso del día, luz que sigue al puntero,
+   tarjetas con brillo, palabras clave y línea del proceso
+   ========================================================= */
+// barra de progreso del "día" bajo el menú
+const progress = document.createElement('div');
+progress.className = 'progress';
+progress.setAttribute('aria-hidden', 'true');
+document.body.appendChild(progress);
+ScrollTrigger.create({
+  start: 0,
+  end: 'max',
+  onUpdate: (self) => progress.style.setProperty('--p', self.progress.toFixed(4)),
+});
+
+// palabras clave: brillo dorado al aparecer
+$$('.hl').forEach((el) => {
+  if (reduced) return el.classList.add('is-lit');
+  ScrollTrigger.create({ trigger: el, start: 'top 85%', once: true, onEnter: () => setTimeout(() => el.classList.add('is-lit'), 450) });
+});
+
+// proceso: la línea se llena con el scroll y cada paso se enciende
+const stepsWrap = $('.steps-wrap');
+if (stepsWrap) {
+  const steps = $$('.step', stepsWrap);
+  const paint = (p) => {
+    stepsWrap.style.setProperty('--p', p.toFixed(3));
+    steps.forEach((st, i) => st.classList.toggle('is-on', p >= i / (steps.length - 1) - 0.02));
+  };
+  if (reduced) paint(1);
+  else
+    ScrollTrigger.create({
+      trigger: stepsWrap,
+      start: 'top 75%',
+      end: 'bottom 55%',
+      scrub: 0.6,
+      onUpdate: (self) => paint(self.progress),
+    });
+}
+
+if (finePointer && !reduced) {
+  // un sol suave sigue al puntero sobre el fondo
+  const sunCursor = document.createElement('div');
+  sunCursor.className = 'cursor-sun';
+  sunCursor.setAttribute('aria-hidden', 'true');
+  $('.veil').after(sunCursor);
+  const sx = gsap.quickTo(sunCursor, 'x', { duration: 0.9, ease: 'power3.out' });
+  const sy = gsap.quickTo(sunCursor, 'y', { duration: 0.9, ease: 'power3.out' });
+
+  // tarjetas: brillo y borde dorado que siguen al puntero
+  const glowCards = $$('.sol, .project, .card, .step, .review, .sun__stat, .calc');
+  glowCards.forEach((c) => {
+    c.classList.add('has-glow');
+    const g = document.createElement('span');
+    g.className = 'glow';
+    g.setAttribute('aria-hidden', 'true');
+    c.appendChild(g);
+  });
+  window.addEventListener(
+    'pointermove',
+    (e) => {
+      sx(e.clientX);
+      sy(e.clientY);
+      const card = e.target.closest?.('.has-glow');
+      if (!card) return;
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      card.style.setProperty('--my', `${e.clientY - r.top}px`);
+    },
+    { passive: true }
+  );
+
+  // botones dorados magnéticos
+  $$('.btn--gold').forEach((btn) => {
+    const mx = gsap.quickTo(btn, 'x', { duration: 0.5, ease: 'power3.out' });
+    const my = gsap.quickTo(btn, 'y', { duration: 0.5, ease: 'power3.out' });
+    btn.addEventListener('pointermove', (e) => {
+      const r = btn.getBoundingClientRect();
+      mx((e.clientX - r.left - r.width / 2) * 0.18);
+      my((e.clientY - r.top - r.height / 2) * 0.3);
+    });
+    btn.addEventListener('pointerleave', () => {
+      mx(0);
+      my(0);
+    });
+  });
+}

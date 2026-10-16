@@ -2894,3 +2894,353 @@ body.menu-open .dock > * {
     flex-basis: 100%;
   }
 }
+
+/* =========================================================
+   Mejoras 2026: cotizador rápido, recibo antes/después,
+   brillo en tarjetas, palabras clave, progreso del día
+   ========================================================= */
+
+/* ---------- cotizador rápido de la portada ---------- */
+.hero__actions {
+  align-items: flex-end;
+}
+.quick {
+  display: grid;
+  gap: 8px;
+}
+.quick label {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+}
+.quick__row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 6px 6px 18px;
+  border-radius: 999px;
+  background: rgba(10, 13, 17, 0.55);
+  border: 1px solid rgba(246, 200, 112, 0.4);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 20px 60px -24px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.quick__row:focus-within {
+  border-color: var(--gold-2);
+  box-shadow: 0 0 0 4px rgba(246, 200, 112, 0.18), 0 20px 60px -24px rgba(0, 0, 0, 0.8);
+}
+.quick__cur {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gold-2);
+}
+.quick input {
+  width: 7ch;
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+.quick input::placeholder {
+  color: rgba(243, 238, 228, 0.35);
+}
+.quick .btn {
+  flex: none;
+}
+.hero__wa {
+  min-height: 54px;
+}
+
+/* ---------- palabras clave con brillo dorado ---------- */
+.hl {
+  background: linear-gradient(100deg, currentColor 0 40%, var(--gold-2) 48%, #fff1c9 52%, var(--gold) 58%, var(--gold-2) 100%);
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.hl:not(.is-lit) {
+  background-position: 0 0;
+}
+.hl.is-lit {
+  animation: hlSweep 1.6s var(--ease) forwards;
+}
+@keyframes hlSweep {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
+/* ---------- progreso del día (bajo el menú) ---------- */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 60;
+  pointer-events: none;
+  background: linear-gradient(90deg, #f0a35e, var(--gold-2) 50%, #ff8a4c);
+  transform-origin: left;
+  transform: scaleX(var(--p, 0));
+  box-shadow: 0 0 12px rgba(246, 200, 112, 0.7);
+}
+
+/* ---------- sol que sigue al puntero (escritorio) ---------- */
+.cursor-sun {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 640px;
+  height: 640px;
+  margin: -320px 0 0 -320px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255, 196, 120, 0.16), rgba(255, 160, 80, 0.06) 45%, transparent);
+  mix-blend-mode: screen;
+}
+
+/* ---------- tarjetas con brillo que sigue al puntero ---------- */
+.has-glow {
+  position: relative;
+  isolation: isolate;
+}
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(246, 200, 112, 0.1), transparent 45%);
+}
+.glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(246, 200, 112, 0.85), transparent 65%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+.has-glow:hover > .glow {
+  opacity: 1;
+}
+
+/* ---------- proceso: línea que se llena y pasos que se encienden ---------- */
+.steps-wrap {
+  --p: 0;
+  position: relative;
+}
+.steps__rail {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  display: none;
+}
+.steps__rail span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--gold), var(--gold-2));
+  box-shadow: 0 0 12px rgba(246, 200, 112, 0.7);
+  transform-origin: left;
+  transform: scaleX(var(--p));
+}
+.steps {
+  position: relative;
+  z-index: 1;
+}
+.step__num {
+  position: relative;
+  transition: background 0.5s, color 0.5s, box-shadow 0.5s, border-color 0.5s;
+}
+.step.is-on .step__num {
+  background: linear-gradient(135deg, var(--gold-2), var(--gold));
+  border-color: var(--gold-2);
+  color: #1a1206;
+  box-shadow: 0 0 0 5px rgba(246, 200, 112, 0.14), 0 0 22px rgba(246, 200, 112, 0.55);
+}
+.step {
+  transition: border-color 0.5s;
+}
+.step.is-on {
+  border-color: rgba(246, 200, 112, 0.32);
+}
+@media (min-width: 1101px) {
+  /* horizontal: une el centro del primer número con el del último */
+  .steps__rail {
+    display: block;
+    top: 41px;
+    height: 2px;
+    left: 39px;
+    right: calc((100% - 56px) / 5 - 39px);
+    background: rgba(243, 238, 228, 0.12);
+  }
+  .step {
+    background: rgba(13, 17, 22, 0.78);
+  }
+}
+@media (max-width: 900px) {
+  /* vertical: sobre la línea izquierda del timeline móvil */
+  .steps__rail {
+    display: block;
+    left: 18px;
+    top: 0;
+    bottom: 18px;
+    width: 2px;
+    margin-left: -0.5px;
+  }
+  .steps__rail span {
+    background: linear-gradient(180deg, var(--gold), var(--gold-2));
+    transform-origin: top;
+    transform: scaleY(var(--p));
+  }
+}
+
+/* ---------- calculadora: recibo antes / después ---------- */
+.bill {
+  display: grid;
+  gap: 10px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: rgba(7, 9, 12, 0.45);
+  border: 1px solid var(--line);
+}
+.bill__title {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+.bill__row {
+  display: grid;
+  grid-template-columns: 76px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+.bill__row span {
+  color: var(--muted);
+}
+.bill__bar {
+  position: relative;
+  height: 12px;
+  border-radius: 12px;
+  background: rgba(243, 238, 228, 0.07);
+  overflow: hidden;
+}
+.bill__bar b {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transform-origin: left;
+}
+.bill__bar--now b {
+  background: linear-gradient(90deg, #c4553b, #ef7b57);
+}
+.bill__bar--sun b {
+  background: linear-gradient(90deg, var(--green), var(--gold-2));
+  box-shadow: 0 0 14px rgba(111, 207, 151, 0.6);
+}
+.bill__row output {
+  min-width: 78px;
+  text-align: right;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.bill__total {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.bill__total b {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--gold-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* resultado recién calculado desde la portada */
+.calc__results.is-flash {
+  animation: calcFlash 1.6s var(--ease);
+}
+@keyframes calcFlash {
+  0% {
+    box-shadow: inset 0 0 0 2px var(--gold-2), 0 0 60px rgba(246, 200, 112, 0.5);
+  }
+  100% {
+    box-shadow: inset 0 0 0 0 transparent, 0 0 0 transparent;
+  }
+}
+.calc__field.is-hint label::after {
+  content: '  ← ajústalo con tu recibo';
+  color: var(--gold-2);
+  font-size: 12px;
+}
+
+/* ---------- móvil ---------- */
+@media (max-width: 900px) {
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .quick__row {
+    padding-left: 14px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(10, 13, 17, 0.82);
+  }
+  .quick input {
+    font-size: 20px;
+  }
+  .quick .btn {
+    padding-inline: 16px;
+  }
+  .hero__wa {
+    min-height: 48px;
+  }
+  .bill__row {
+    grid-template-columns: 64px 1fr auto;
+    gap: 10px;
+  }
+}
+@media (max-width: 360px) {
+  .quick .btn svg {
+    display: none;
+  }
+}
+
+@media (min-width: 901px) {
+  .hero__wa {
+    min-height: 66px;
+  }
+}
+/* brillo de tarjetas más presente */
+.glow {
+  background: radial-gradient(460px circle at var(--mx, 50%) var(--my, 50%), rgba(246, 200, 112, 0.16), transparent 45%);
+  mix-blend-mode: screen;
+}
+.glow::before {
+  padding: 1.5px;
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), #f6c870, rgba(246, 200, 112, 0.35) 40%, transparent 70%);
+}
