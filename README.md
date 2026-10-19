@@ -43,12 +43,12 @@ public/img/           Fotos reales de ASR (webp), logos de marcas y logo de ASR
 2. **Tu ventaja**: 4 cifras del sol de Juárez.
 3. **Soluciones**: interconectado, híbrido y aislado lado a lado, con "Cómo funciona" desplegable.
 4. **Proyectos (mediodía)**: cada instalación en su propia tarjeta, con filtro Casas / Comercios / Industria y visor de foto grande. Debajo, marcas.
-5. **Clientes satisfechos**: testimonios y botón para dejar reseña.
-6. **Empresas**: video de dron y deducción del 100 % (Art. 34 LISR).
+5. **Clientes satisfechos**: reseñas reales desde `resenas.json` y formulario para dejar la tuya.
+6. **Empresas**: video de dron y deducción del 100 % (Art. 34, fr. XIII LISR) con su letra chica: no aplica en RESICO PF y el equipo debe operar 5 años.
 7. **Servicios (tarde)**: solar, eléctrico, clima y generadores.
 8. **Cómo trabajamos + ¿Por qué ASR?**: 5 pasos y 6 razones con la foto del instalador.
-9. **Calculadora de ahorro** y **Preguntas frecuentes**.
-10. **Contacto (atardecer)**: la batería llega al 100 %; formulario por WhatsApp o correo.
+9. **Calculadora de ahorro** (estimación con aviso visible; el pago arrastra el consumo hasta que el visitante lo ajusta) y **Preguntas frecuentes**.
+10. **Contacto (atardecer)**: la batería llega al 100 %; formulario por WhatsApp o directo al correo.
 
 En móvil, soluciones, proyectos y testimonios son carruseles horizontales (se deslizan con el dedo) para que la página no sea eterna.
 
@@ -58,12 +58,34 @@ Copia un `<article class="project">` en `index.html`, cambia la foto, `data-cat`
 
 ## Pendientes del cliente
 
-- **Formspree** (formulario directo al correo): crear cuenta en formspree.io y pegar la URL en `data-endpoint` del `<form class="quote">` en `index.html`. Sin eso, el formulario abre el correo del visitante.
+- **Activar el correo (una sola vez)**: el formulario de cotización y el de reseñas envían por [FormSubmit](https://formsubmit.co) a `asr.renovables@gmail.com`. La primera vez que alguien envíe algo llega un correo de activación a esa cuenta: abrirlo y dar clic en **Activate Form**. Hasta entonces el sitio muestra "No se pudo enviar" y ofrece WhatsApp. Opcional: FormSubmit da un alias aleatorio para no exponer el correo; se pega en `data-endpoint` de `.quote` y `.rate-form` en lugar del correo.
 - **Foto original del hero** (paneles al atardecer), en la mejor resolución posible.
 - **Foto real de un generador eléctrico** (hoy usa la del atardecer) y **foto de HVAC** en mayor resolución (la actual mide 643 × 361 px).
-- **Testimonios reales** (obligatorio antes de publicar): los 3 de la sección Clientes son ejemplos de formato y llevan la etiqueta "Ejemplo". Reemplazarlos por reseñas reales, con permiso del cliente, y borrar los `span.review__demo`.
+- **Perfil de Negocio en Google** (opcional, recomendado): pegar el enlace "Pedir reseñas" en `data-google` del botón de la sección Clientes; aparece solo.
 - **Datos de cada proyecto**: kWp, número de paneles y colonia, para sumarlos a las tarjetas de proyecto.
+- **Dominio**: cuando se compre `asrrenovables.com`, crear los registros DNS de GitHub Pages, agregar `public/CNAME` con el dominio y activar HTTPS. No agregar el `CNAME` antes, o la vista previa de github.io deja de abrir.
 - Tras publicar: dar de alta el dominio en Google Search Console y enviar `https://asrrenovables.com/sitemap.xml`.
+
+## Reseñas
+
+Las reseñas publicadas viven en `public/resenas.json` y se pintan solas en la sección Clientes. Si el archivo está vacío (`[]`), se muestra el mensaje de "primeras reseñas" y el formulario.
+
+Las nuevas llegan a `asr.renovables@gmail.com` (asunto "Nueva reseña ★★★★★ · Nombre"). Solo se publican las que traen **autoriza_publicar: Sí**. Para publicarla, agrégala al JSON:
+
+```json
+[
+  {
+    "nombre": "Familia Rodríguez",
+    "estrellas": 5,
+    "texto": "Pagábamos más de $4,000 al bimestre. Ahora pagamos el mínimo.",
+    "detalle": "Sistema residencial · Riberas del Bravo"
+  }
+]
+```
+
+## Aviso de privacidad
+
+`public/aviso-privacidad.html` (página estática, enlazada en el pie, el formulario de cotización y el de reseñas). Si cambia el responsable, el domicilio o el uso de los datos, actualizar el texto y la fecha.
 
 ## Video del dron
 

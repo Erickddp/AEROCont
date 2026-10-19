@@ -1503,17 +1503,158 @@ body.menu-open .dock > * {
   font-weight: 700;
   color: #1a1206;
 }
-.recommend {
+/* reseñas: panel para dejar la tuya */
+.reviews[hidden] {
+  display: none;
+}
+.reviews:not([hidden]) + .rate {
+  margin-top: 18px;
+}
+.rate {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(20px, 4vw, 56px);
+  align-items: start;
+  padding: clamp(22px, 3vw, 36px);
+  border-radius: var(--radius-lg);
+  border: 1px dashed rgba(246, 200, 112, 0.4);
+  background: rgba(7, 9, 12, 0.55);
+}
+.rate__copy {
+  display: grid;
+  gap: 12px;
+  max-width: 42ch;
+}
+.rate__copy p {
+  color: var(--muted);
+  line-height: 1.55;
+}
+.rate__alt {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px 24px;
-  margin-top: 18px;
-  padding: 18px 22px;
-  border-radius: var(--radius);
-  border: 1px dashed rgba(246, 200, 112, 0.4);
-  background: rgba(7, 9, 12, 0.5);
+  gap: 12px 18px;
+  margin-top: 6px;
+}
+.rate__alt [hidden] {
+  display: none;
+}
+.rate__wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.rate__wa svg {
+  width: 18px;
+  height: 18px;
+  color: var(--wa);
+}
+.rate__wa:hover {
+  color: var(--cream);
+}
+.rate-form {
+  box-shadow: none;
+}
+.stars-input {
+  display: flex;
+  gap: 4px;
+}
+.stars-input label {
+  position: relative;
+  margin: 0;
+  padding: 2px;
+  cursor: pointer;
+  color: rgba(243, 238, 228, 0.22);
+  transition: color 0.2s, transform 0.2s var(--ease);
+}
+.stars-input input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.stars-input svg {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+/* se encienden la elegida y las anteriores; al pasar el puntero, manda el puntero */
+.stars-input label:has(input:checked),
+.stars-input label:has(~ label input:checked) {
+  color: var(--gold-2);
+}
+.stars-input:hover label {
+  color: rgba(243, 238, 228, 0.22);
+}
+.stars-input:hover label:hover,
+.stars-input:hover label:has(~ label:hover) {
+  color: var(--gold-2);
+}
+.stars-input label:hover {
+  transform: scale(1.12);
+}
+.stars-input label:has(input:focus-visible) {
+  outline: 2px solid var(--gold-2);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.consent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  cursor: pointer;
+}
+.consent input {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  accent-color: var(--gold);
+}
+.consent a,
+.quote__legal a,
+.footer__bottom p a {
+  color: var(--gold-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.quote__legal {
+  font-size: 12px;
+  color: var(--soft);
+  text-align: center;
+}
+.rate-form__note {
+  font-size: 14px;
+  color: var(--muted);
+  min-height: 1.4em;
+}
+.hp {
+  position: absolute !important;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+@media (max-width: 860px) {
+  .rate {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+  .rate-form {
+    padding: 18px;
+  }
 }
 
 /* ---------- Empresas ---------- */
@@ -1559,6 +1700,13 @@ body.menu-open .dock > * {
 }
 .biz__content .h2 {
   font-size: clamp(28px, 2.8vw, 42px);
+}
+.biz__legal {
+  max-width: 52ch;
+  margin-top: -8px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--soft);
 }
 
 /* ---------- Servicios ---------- */
@@ -2022,7 +2170,8 @@ body.menu-open .dock > * {
 .contact__list a:hover {
   color: var(--gold-2);
 }
-.quote {
+.quote,
+.rate-form {
   padding: clamp(24px, 3vw, 40px);
   border-radius: var(--radius-lg);
   background: rgba(10, 13, 17, 0.9);
@@ -2031,7 +2180,8 @@ body.menu-open .dock > * {
   display: grid;
   gap: 16px;
 }
-.quote h3 {
+.quote h3,
+.rate__copy h3 {
   font-family: var(--font-display);
   font-size: 24px;
   font-weight: 600;
@@ -2074,7 +2224,8 @@ body.menu-open .dock > * {
   border-color: var(--gold);
   background: rgba(243, 238, 228, 0.08);
 }
-.field input.is-invalid {
+.field input.is-invalid,
+.field textarea.is-invalid {
   border-color: #ef6b5b;
 }
 .pills {
@@ -3167,6 +3318,15 @@ body.menu-open .dock > * {
   font-family: var(--font-display);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
+}
+.calc__legal {
+  padding: 10px 14px;
+  border-left: 2px solid var(--gold);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  background: rgba(243, 238, 228, 0.04);
+  border-radius: 0 10px 10px 0;
 }
 .bill__total {
   margin-top: 4px;

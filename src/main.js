@@ -469,6 +469,18 @@ lightbox.addEventListener('click', (e) => e.target === lightbox && lightbox.clos
 /* =========================================================
    Formulario de cotización (WhatsApp o correo)
    ========================================================= */
+// FormSubmit responde 200 aunque falle (p. ej. sin activar), así que se revisa "success"
+async function sendMail(endpoint, payload) {
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok || String(json.success) !== 'true') throw new Error(json.message || res.status);
+  return json;
+}
+
 const form = $('.quote');
 const note = $('.quote__note');
 
@@ -508,16 +520,12 @@ form.addEventListener('submit', async (e) => {
   const btn = $('button[type="submit"]', form);
 
   if (endpoint) {
-    // envío directo (Formspree, Netlify Forms, etc.)
+    // envío directo al correo (FormSubmit)
+    if ($('.hp', form)?.value) return; // bot
     btn.disabled = true;
     note.textContent = 'Enviando…';
     try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ ...d, _subject: `Cotización · ${d.tipo} · ${d.nombre}` }),
-      });
-      if (!res.ok) throw new Error(res.status);
+      await sendMail(endpoint, { ...d, _subject: `Cotización · ${d.tipo} · ${d.nombre}`, _template: 'table' });
       form.reset();
       note.textContent = '¡Gracias! Recibimos tu solicitud y te contactaremos pronto.';
     } catch {
@@ -543,6 +551,85 @@ $('[data-wa-send]').addEventListener('click', () => {
 });
 
 /* =========================================================
+   Reseñas: se pintan desde resenas.json y se reciben por correo
+   ========================================================= */
+const reviewsBox = $('[data-reviews]');
+const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
+function reviewCard(r) {
+  const n = Math.max(1, Math.min(5, Math.round(Number(r.estrellas) || 5)));
+  const stars = '<svg><use href="#i-star" /></svg>'.repeat(n);
+  const nombre = esc(r.nombre || 'Cliente de ASR');
+  return `<figure class="review">
+    <div class="review__stars" aria-label="${n} de 5 estrellas">${stars}</div>
+    <blockquote>“${esc(r.texto)}”</blockquote>
+    <figcaption><span class="review__avatar" aria-hidden="true">${esc(nombre.charAt(0).toUpperCase())}</span><span><b>${nombre}</b>${esc(r.detalle || '')}</span></figcaption>
+  </figure>`;
+}
+
+fetch('resenas.json', { cache: 'no-cache' })
+  .then((r) => (r.ok ? r.json() : []))
+  .catch(() => [])
+  .then((list) => {
+    const ok = Array.isArray(list) ? list.filter((r) => r && r.texto) : [];
+    if (!ok.length) return; // sin reseñas: queda el mensaje de "primeras reseñas"
+    reviewsBox.innerHTML = ok.map(reviewCard).join('');
+    reviewsBox.hidden = false;
+    $('[data-reviews-empty]')?.remove();
+    const aside = $('[data-reviews-aside]');
+    if (aside) aside.textContent = 'Lo que dicen quienes ya pagan menos luz.';
+    ScrollTrigger.refresh();
+  });
+
+const google = $('[data-google]');
+if (google?.dataset.google) {
+  google.href = google.dataset.google;
+  google.hidden = false;
+}
+
+const rateForm = $('.rate-form');
+const rateNote = $('.rate-form__note');
+rateForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if ($('.hp', rateForm).value) return; // bot
+  const data = new FormData(rateForm);
+  const nombre = String(data.get('nombre') || '').trim();
+  const resena = String(data.get('resena') || '').trim();
+  const autorizo = data.get('autorizo');
+  $('#r-name').classList.toggle('is-invalid', !nombre);
+  $('#r-msg').classList.toggle('is-invalid', resena.length < 10);
+  if (!nombre || resena.length < 10) {
+    rateNote.textContent = 'Escribe tu nombre y tu reseña (mínimo 10 letras).';
+    return;
+  }
+  if (!autorizo) {
+    rateNote.textContent = 'Marca la casilla para autorizar que publiquemos tu reseña.';
+    return;
+  }
+  const estrellas = Number(data.get('estrellas') || 5);
+  const btn = $('button[type="submit"]', rateForm);
+  btn.disabled = true;
+  rateNote.textContent = 'Enviando…';
+  try {
+    await sendMail(rateForm.dataset.endpoint, {
+      _subject: `Nueva reseña ${'★'.repeat(estrellas)} · ${nombre}`,
+      _template: 'table',
+      nombre,
+      estrellas,
+      sistema: String(data.get('sistema') || ''),
+      resena,
+      autoriza_publicar: 'Sí',
+    });
+    rateForm.reset();
+    rateNote.textContent = '¡Gracias! Recibimos tu reseña y la publicaremos después de revisarla.';
+  } catch {
+    rateNote.textContent = 'No se pudo enviar. Mándanos tu reseña por WhatsApp, por favor.';
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+/* =========================================================
    Calculadora de ahorro (estimación orientativa)
    ========================================================= */
 const calc = $('.calc');
@@ -553,6 +640,7 @@ if (calc) {
   const PANEL_KW = 0.55; // panel de 550 W
   const PANEL_M2 = 2.6; // área por panel incluyendo separaciones
   const CO2 = 0.438; // t CO2 por MWh (factor de emisión del sistema eléctrico nacional)
+  const PESOS_KWH = 3.3; // pago promedio por kWh para estimar el consumo cuando solo dan el pago
   const fmt = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 0 });
   const fmt1 = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 1, minimumFractionDigits: 1 });
   const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
@@ -614,17 +702,30 @@ if (calc) {
       },
     });
 
+  function kwhFromBill(bill) {
+    return Math.min(8000, Math.max(200, Math.round(bill / PESOS_KWH / 50) * 50));
+  }
+
   calcApi = {
     // desde la portada: con el pago estimamos el consumo (≈ $3.30 por kWh promedio) y llenamos la calculadora
     fromBill(bill) {
       const b = Math.min(30000, Math.max(500, Math.round(bill / 100) * 100));
-      const k = Math.min(8000, Math.max(200, Math.round(bill / 3.3 / 50) * 50));
+      const k = kwhFromBill(b);
       inBill.value = b;
       inKwh.value = k;
       update();
     },
   };
-  [inBill, inKwh].forEach((r) => r.addEventListener('input', update));
+  // mientras no toquen el consumo, el pago lo arrastra (si no, los paneles no cambian al mover el pago)
+  let kwhTouched = false;
+  inKwh.addEventListener('input', () => {
+    kwhTouched = true;
+    update();
+  });
+  inBill.addEventListener('input', () => {
+    if (!kwhTouched) inKwh.value = kwhFromBill(Number(inBill.value));
+    update();
+  });
   update();
 
   $('[data-calc-quote]', calc).addEventListener('click', () => {
