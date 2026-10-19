@@ -62,8 +62,8 @@
         ]
       }
     </script>
-    <script type="module" crossorigin src="./assets/index-DT9ofvYp.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BdO9kGW-.css">
+    <script type="module" crossorigin src="./assets/index-Bmk_XA_z.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BtiH1S8C.css">
   </head>
   <body>
     <!-- Pantalla de carga -->
@@ -427,42 +427,65 @@
       </section>
 
       <!-- ============ CLIENTES SATISFECHOS ============ -->
-      <!-- IMPORTANTE: los 3 testimonios son EJEMPLOS de formato. Antes de publicar, reemplázalos por reseñas reales
-           (con permiso del cliente) y quita la etiqueta "Ejemplo" (span.review__demo). -->
+      <!-- Las reseñas publicadas viven en public/resenas.json (se pintan solas).
+           Las nuevas llegan al correo desde el formulario de abajo; ASR las revisa y las agrega al JSON.
+           Si ASR abre su Perfil de Negocio en Google, pega el enlace "Pedir reseñas" en data-google del botón. -->
       <section class="clients section" id="clientes" data-veil="0.78">
         <div class="container">
           <div class="head">
             <div>
               <p class="eyebrow" data-reveal>Clientes satisfechos</p>
-              <h2 class="h2" data-split>Lo que dicen quienes ya pagan menos luz.</h2>
+              <h2 class="h2" data-split>La mejor recomendación es un recibo de CFE más bajo.</h2>
             </div>
-            <p class="head__aside" data-reveal>La mejor recomendación es un recibo de CFE más bajo.</p>
+            <p class="head__aside" data-reveal data-reviews-aside>¿Ya instalamos tu sistema? Cuéntale a Juárez cómo te fue.</p>
           </div>
 
-          <div class="reviews">
-            <figure class="review" data-card>
-              <span class="review__demo">Ejemplo</span>
-              <div class="review__stars" aria-label="5 de 5 estrellas"><svg><use href="#i-star" /></svg><svg><use href="#i-star" /></svg><svg><use href="#i-star" /></svg><svg><use href="#i-star" /></svg><svg><use href="#i-star" /></svg></div>
-              <blockquote>“Pagaba más de $4,000 al bimestre por los minisplits. Ahora pago el mínimo. Hicieron todo el trámite con CFE.”</blockquote>
-              <figcaption><span class="review__avatar" aria-hidden="true">C</span><span><b>Cliente residencial</b>Sistema interconectado</span></figcaption>
-            </figure>
-            <figure class="review" data-card>
-              <span class="review__demo">Ejemplo</span>
-              <div class="review__stars" aria-label="5 de 5 estrellas"><svg><use href="#i-star" /></svg><svg><use href="#i-star" /></svg><svg><use href="#i-star" /></svg><svg><use href="#i-star" /></svg><svg><use href="#i-star" /></svg></div>
-              <blockquote>“Llegaron puntuales, dejaron todo limpio y nos explicaron la app para ver lo que genera el sistema.”</blockquote>
-              <figcaption><span class="review__avatar" aria-hidden="true">N</span><span><b>Negocio local</b>Sistema comercial</span></figcaption>
-            </figure>
-            <figure class="review" data-card>
-              <span class="review__demo">Ejemplo</span>
-              <div class="review__stars" aria-label="5 de 5 estrellas"><svg><use href="#i-star" /></svg><svg><use href="#i-star" /></svg><svg><use href="#i-star" /></svg><svg><use href="#i-star" /></svg><svg><use href="#i-star" /></svg></div>
-              <blockquote>“Con el híbrido ya no nos afectan los apagones. El refri y el internet siguen funcionando.”</blockquote>
-              <figcaption><span class="review__avatar" aria-hidden="true">F</span><span><b>Familia en Juárez</b>Sistema híbrido</span></figcaption>
-            </figure>
-          </div>
+          <div class="reviews" data-reviews hidden></div>
 
-          <div class="recommend" data-reveal>
-            <p><b>¿Ya eres cliente de ASR?</b> Tu recomendación ayuda a otras familias de Juárez a ahorrar.</p>
-            <a class="btn btn--ghost btn--sm" href="https://wa.me/526566621834?text=Hola%2C%20quiero%20dejar%20mi%20rese%C3%B1a" target="_blank" rel="noopener">Dejar mi reseña <svg aria-hidden="true"><use href="#i-arrow" /></svg></a>
+          <div class="rate" data-reveal>
+            <div class="rate__copy">
+              <h3>¿Ya eres cliente de ASR?</h3>
+              <p data-reviews-empty>Estamos juntando las primeras reseñas de nuestros clientes. Tu opinión ayuda a otras familias de Juárez a decidirse por el sol.</p>
+              <p>Revisamos cada reseña antes de publicarla y solo usamos el nombre con el que quieras aparecer.</p>
+              <div class="rate__alt">
+                <a class="btn btn--ghost btn--sm" data-google href="" target="_blank" rel="noopener" hidden>Reseñar en Google <svg aria-hidden="true"><use href="#i-arrow" /></svg></a>
+                <a class="rate__wa" href="https://wa.me/526566621834?text=Hola%2C%20quiero%20dejar%20mi%20rese%C3%B1a" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa" /></svg>¿Prefieres WhatsApp?</a>
+              </div>
+            </div>
+
+            <form class="rate-form" novalidate data-endpoint="https://formsubmit.co/ajax/asr.renovables@gmail.com">
+              <fieldset class="field">
+                <legend>Tu calificación</legend>
+                <div class="stars-input" role="radiogroup" aria-label="Calificación de 1 a 5 estrellas">
+                  <label><input type="radio" name="estrellas" value="1" /><svg aria-hidden="true"><use href="#i-star" /></svg><span class="sr">1 estrella</span></label>
+                  <label><input type="radio" name="estrellas" value="2" /><svg aria-hidden="true"><use href="#i-star" /></svg><span class="sr">2 estrellas</span></label>
+                  <label><input type="radio" name="estrellas" value="3" /><svg aria-hidden="true"><use href="#i-star" /></svg><span class="sr">3 estrellas</span></label>
+                  <label><input type="radio" name="estrellas" value="4" /><svg aria-hidden="true"><use href="#i-star" /></svg><span class="sr">4 estrellas</span></label>
+                  <label><input type="radio" name="estrellas" value="5" checked /><svg aria-hidden="true"><use href="#i-star" /></svg><span class="sr">5 estrellas</span></label>
+                </div>
+              </fieldset>
+              <div class="field">
+                <label for="r-name">Nombre con el que quieres aparecer</label>
+                <input id="r-name" name="nombre" type="text" autocomplete="name" placeholder="Ej. Familia Rodríguez" required />
+              </div>
+              <fieldset class="field">
+                <legend>¿Qué instalamos?</legend>
+                <div class="pills">
+                  <label><input type="radio" name="sistema" value="Sistema residencial" checked /><span>Casa</span></label>
+                  <label><input type="radio" name="sistema" value="Sistema comercial" /><span>Comercio</span></label>
+                  <label><input type="radio" name="sistema" value="Sistema industrial" /><span>Industria</span></label>
+                  <label><input type="radio" name="sistema" value="Servicio eléctrico o clima" /><span>Eléctrico / clima</span></label>
+                </div>
+              </fieldset>
+              <div class="field">
+                <label for="r-msg">Tu reseña</label>
+                <textarea id="r-msg" name="resena" rows="3" maxlength="400" required placeholder="¿Cómo te fue? ¿Cuánto bajó tu recibo?"></textarea>
+              </div>
+              <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <label class="consent"><input type="checkbox" name="autorizo" required /><span>Autorizo a ASR Renovables a publicar mi reseña en su sitio con el nombre que escribí. <a href="aviso-privacidad.html" target="_blank">Aviso de privacidad</a></span></label>
+              <button type="submit" class="btn btn--gold btn--block">Enviar mi reseña</button>
+              <p class="rate-form__note" role="status" aria-live="polite"></p>
+            </form>
           </div>
         </div>
       </section>
@@ -482,8 +505,9 @@
               <ul class="ticks ticks--lg">
                 <li>Sistemas para comercios, oficinas e industria</li>
                 <li>Aprovechamos cada metro de techo</li>
-                <li>Deducible al 100 % el primer año <small>(Art. 34 LISR)</small></li>
+                <li>Deducible al 100 %* <small>(Art. 34, fr. XIII LISR)</small></li>
               </ul>
+              <p class="biz__legal">*Para empresas y personas con actividad empresarial que deducen inversiones; no aplica en RESICO de personas físicas. El equipo debe seguir operando al menos 5 años después del ejercicio en que se deduce; si no, se paga el ISR de la diferencia. Consulta a tu contador.</p>
               <a class="btn btn--gold" href="#contacto" data-tipo="Comercial">Pedir evaluación <svg aria-hidden="true"><use href="#i-arrow" /></svg></a>
             </div>
           </div>
@@ -594,7 +618,7 @@
               <details class="more">
                 <summary><span>Cómo lo calculamos</span><i aria-hidden="true"></i></summary>
                 <div class="more__body">
-                  <p>Usamos 5.8 horas solares pico, paneles de 550 W y 78 % de rendimiento real (calor, cableado e inversor). El ahorro supone que el sistema cubre el 95 % de tu recibo; a 25 años no contamos aumentos de tarifa ni el desgaste de los paneles. Es una estimación: la cifra exacta la damos en la visita técnica.</p>
+                  <p>Si no ajustas el consumo, lo estimamos con tu pago (unos $3.30 por kWh). Usamos 5.8 horas solares pico, paneles de 550 W y 78 % de rendimiento real (calor, cableado e inversor). El ahorro supone que el sistema cubre el 95 % de tu recibo; a 25 años no contamos aumentos de tarifa ni el desgaste de los paneles. Es una estimación: la cifra exacta la damos en la visita técnica.</p>
                 </div>
               </details>
             </div>
@@ -621,6 +645,7 @@
                 </div>
                 <p class="bill__total">En 25 años dejas de pagar aprox. <b data-out="save25">$0</b></p>
               </div>
+              <p class="calc__legal">Estimación con supuestos generales para Ciudad Juárez. No es una cotización: la cifra exacta sale de tu recibo de CFE y de la visita técnica.</p>
               <a class="btn btn--gold btn--block" href="#contacto" data-calc-quote>Quiero mi cotización exacta <svg aria-hidden="true"><use href="#i-arrow" /></svg></a>
             </div>
           </div>
@@ -679,8 +704,8 @@
             </ul>
           </div>
 
-          <!-- Para recibir las solicitudes directo en el correo: pega en data-endpoint la URL de Formspree (https://formspree.io/f/XXXX) -->
-          <form class="quote" data-reveal novalidate data-endpoint="" data-wa="526566621834">
+          <!-- Envío directo al correo con FormSubmit. La 1.ª vez llega un correo de activación a asr.renovables@gmail.com: hay que dar clic en "Activate Form". -->
+          <form class="quote" data-reveal novalidate data-endpoint="https://formsubmit.co/ajax/asr.renovables@gmail.com" data-wa="526566621834">
             <h3>Solicita tu cotización</h3>
             <div class="field">
               <label for="q-name">Nombre</label>
@@ -712,8 +737,10 @@
               <textarea id="q-msg" name="mensaje" rows="3"></textarea>
             </div>
             <button type="button" class="btn btn--wa btn--block" data-wa-send><svg class="i-wa" aria-hidden="true"><use href="#i-wa" /></svg>Enviar por WhatsApp</button>
+            <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <button type="submit" class="btn btn--ghost btn--block">Enviar por correo</button>
             <p class="quote__note" role="status" aria-live="polite">Te contactamos para agendar tu visita.</p>
+            <p class="quote__legal">Al enviar aceptas el <a href="aviso-privacidad.html" target="_blank">aviso de privacidad</a>.</p>
           </form>
         </div>
       </section>
@@ -757,7 +784,7 @@
         </ul>
       </div>
       <div class="container footer__bottom">
-        <p>© <span data-year>2026</span> ASR Renovables</p>
+        <p>© <span data-year>2026</span> ASR Renovables · <a href="aviso-privacidad.html">Aviso de privacidad</a></p>
         <a href="#inicio" class="footer__top">Volver al amanecer <span aria-hidden="true">↑</span></a>
       </div>
     </footer>
@@ -768,6 +795,6 @@
       <img alt="" />
       <p class="lightbox__cap"></p>
     </dialog>
-
+
   </body>
 </html>
